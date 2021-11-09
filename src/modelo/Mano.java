@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class Mano {
     private double pozo;
-    private Participacion ganador;
-    private ArrayList<Participacion> participantes;
-    private Mazo mazo;
+    private Participacion ganador = new Participacion();
+    private ArrayList<Participacion> participantes = new ArrayList();
+    private Mazo mazo = new Mazo();
 
     public Mano(double luz) {
         this.pozo = luz;

@@ -11,7 +11,7 @@ package modelo;
  */
 public class Carta {
     private int numero;
-    private Palo palo; 
+    private Palo palo = new Palo(); 
 
     public int getNumero() {
         return numero;

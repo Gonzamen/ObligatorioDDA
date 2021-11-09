@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author gonza
  */
 public class ControlJuegos {
-    private ArrayList<Juego> juegos;
+    private ArrayList<Juego> juegos = new ArrayList();
     
     public void agregarJuego(Juego juego){
         juegos.add(juego);

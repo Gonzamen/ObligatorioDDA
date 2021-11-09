@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * @author gonza
  */
 public class ControlUsuarios {
-    private ArrayList<Administrador> administradores;
-    private ArrayList<Jugador> jugadores;
+    private ArrayList<Administrador> administradores = new ArrayList();
+    private ArrayList<Jugador> jugadores = new ArrayList();
     
     public void agregarJugador(Jugador jug){
         jugadores.add(jug);

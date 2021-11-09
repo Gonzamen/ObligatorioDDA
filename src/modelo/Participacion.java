@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class Participacion {
 
     private int cantidadParticipantes;
-    private Jugador jugador;
-    private ArrayList<Carta> cartasJugador;
-    private Apuesta apuesta;
-    private Figura figura;
+    private Jugador jugador = new Jugador();
+    private ArrayList<Carta> cartasJugador = new ArrayList();
+    private Apuesta apuesta = new Apuesta();
+    private Figura figura = new Figura();
 
     public int getCantidadParticipantes() {
         return cantidadParticipantes;

@@ -12,5 +12,5 @@ import java.util.ArrayList;
  * @author gonza
  */
 public class Mazo {
-    private ArrayList<Carta> cartas= new ArrayList();
+    private ArrayList<Carta> cartas = new ArrayList();
 }

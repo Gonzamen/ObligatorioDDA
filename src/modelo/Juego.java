@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author gonza
  */
 public class Juego {
-    private ArrayList<Participacion> jugadores;
+    private ArrayList<Participacion> jugadores = new ArrayList();
     private Mano mano;
     private int luz = 5;
 
