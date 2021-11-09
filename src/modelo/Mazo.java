@@ -5,10 +5,12 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gonza
  */
 public class Mazo {
-    
+    private ArrayList<Carta> cartas= new ArrayList();
 }
