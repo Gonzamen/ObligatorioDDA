@@ -10,5 +10,6 @@ package modelo;
  * @author gonza
  */
 public class Sistema {
-    
+    private ControlJuegos controlJuegos=new ControlJuegos();
+    private ControlUsuarios controlUsuarios=new ControlUsuarios();
 }
