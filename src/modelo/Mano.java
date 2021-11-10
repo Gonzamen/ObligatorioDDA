@@ -16,6 +16,7 @@ public class Mano {
     private Participacion ganador = new Participacion();
     private ArrayList<Participacion> participantes = new ArrayList();
     private Mazo mazo = new Mazo();
+    private Juego juego = new Juego();
 
     public Mano(double luz, ArrayList<Participacion> participantes) {
         this.pozo = luz;
@@ -58,6 +59,31 @@ public class Mano {
                 i++;
             }
         }
+    }
+    
+    public boolean apostar(Participacion participante, double monto){
+        for(Participacion p : this.participantes){
+            if(p.getSaldoJugador() < monto){
+                return false;
+            }
+        }
+        participante.apostar(monto);
+        this.pozo+=monto;
+        return true;
+    }
+    
+    public void igualarApuesta(Participacion participante, double monto){
+        if(monto == 0){
+            this.participantes.remove(participante);
+        }else{
+            participante.apostar(monto);
+            this.pozo+=monto;
+        }
+    }
+    
+    public void ganarMano(){
+        
+        juego.generarMano();
     }
     
 }

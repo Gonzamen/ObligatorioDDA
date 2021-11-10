@@ -9,9 +9,9 @@ package modelo;
  *
  * @author gonza
  */
-public class Palo {
+public class Palo implements Comparable<Palo>{
     private String nombre;
-    private String rango;
+    private int valor;
 
     public String getNombre() {
         return nombre;
@@ -21,12 +21,22 @@ public class Palo {
         this.nombre = nombre;
     }
 
-    public String getRango() {
-        return rango;
+    public int getvalor() {
+        return valor;
     }
 
-    public void setRango(String rango) {
-        this.rango = rango;
+    public void setvalor(int valor) {
+        this.valor = valor;
     }
-    
+
+    @Override
+    public int compareTo(Palo o) {
+        if(this.valor > o.getvalor()){
+            return 1;
+        }else if(this.valor < o.getvalor()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }  
 }

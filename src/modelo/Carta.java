@@ -17,8 +17,8 @@ public class Carta {
         return numero;
     }
 
-    public String getPalo() {
-        return palo.getNombre();
+    public Palo getPalo() {
+        return palo;
     }
 
     public void setPalo(Palo palo) {

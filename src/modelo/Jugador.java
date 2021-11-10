@@ -21,7 +21,7 @@ public class Jugador extends Usuario{
         return saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 

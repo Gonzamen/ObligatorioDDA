@@ -36,12 +36,13 @@ public class Juego {
     }
     
     public void generarMano(){
+        Mano manoAnterior = mano.get(mano.size()-1);
         for(Participacion p : this.jugadores){
             if(p.getSaldoJugador()<this.luz){
                 retirarParticipante(p);
             }
         }
-        mano.add(new Mano(luz*jugadores.size(),this.jugadores));
+        mano.add(new Mano(luz*jugadores.size()+manoAnterior.getPozo(),this.jugadores));
     }
     
     
