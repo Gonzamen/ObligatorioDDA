@@ -9,7 +9,7 @@ package modelo;
  *
  * @author gonza
  */
-public class Usuario {
+public abstract class Usuario {
     private String nomUsuario;
     private String contraseña;
     private String nombreCompleto;
@@ -37,5 +37,6 @@ public class Usuario {
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
     }
+    
     
 }

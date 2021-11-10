@@ -12,14 +12,34 @@ import java.util.ArrayList;
  * @author gonza
  */
 public class ControlUsuarios {
+
     private ArrayList<Administrador> administradores = new ArrayList();
     private ArrayList<Jugador> jugadores = new ArrayList();
-    
-    public void agregarJugador(Jugador jug){
+
+    public void agregarJugador(Jugador jug) {
         jugadores.add(jug);
     }
-    
-    public void agregarAdministrador(Administrador adm){
+
+    public void agregarAdministrador(Administrador adm) {
         administradores.add(adm);
+    }
+
+    public boolean inciarSesion(String nomUsuario, String password) {
+        boolean encontrado = false;
+        if (nomUsuario != "" || password != "") {
+            for (Jugador j : jugadores) {
+                if (j.getNomUsuario() == nomUsuario && j.getContraseña() == password) {
+                    encontrado = true;
+                }
+            }
+            for (Administrador a : administradores) {
+                if (a.getNomUsuario() == nomUsuario && a.getContraseña() == password) {
+                    encontrado = true;
+                }
+            }
+            return encontrado;
+        } else {
+            return false;
+        }
     }
 }

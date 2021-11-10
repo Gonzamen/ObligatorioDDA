@@ -11,18 +11,19 @@ package modelo;
  */
 public class Jugador extends Usuario{
     
-    private int saldo;
+    private double saldo;
 
     public Jugador() {
     }
        
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
 
     public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
+
     
 }

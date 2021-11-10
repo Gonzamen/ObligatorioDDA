@@ -17,8 +17,9 @@ public class Mano {
     private ArrayList<Participacion> participantes = new ArrayList();
     private Mazo mazo = new Mazo();
 
-    public Mano(double luz) {
+    public Mano(double luz, ArrayList<Participacion> participantes) {
         this.pozo = luz;
+        this.participantes = participantes;
     }
     
 
@@ -42,21 +43,21 @@ public class Mano {
         return mazo;
     }
 
-    public void setMazo(Mazo mazo) {
-        this.mazo = mazo;
-    }
-
     public ArrayList<Participacion> getParticipantes() {
         return participantes;
     }
-
-    public void setParticipantes(ArrayList<Participacion> participantes) {
-        this.participantes = participantes;
-    }
-    
     
     public void barajarMazo(){
-        
+        mazo.barajar();
+    }
+    
+    public void repartirCartas(){
+        for(int i=0;i<=(this.participantes.size()*5) - 1;i++){
+            for(Participacion p : this.participantes){
+                p.setCartasJugador(mazo.getCartas().get(i));
+                i++;
+            }
+        }
     }
     
 }

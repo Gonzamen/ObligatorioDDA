@@ -39,8 +39,8 @@ public class Participacion {
         return cartasJugador;
     }
 
-    public void setCartasJugador(ArrayList<Carta> cartasJugador) {
-        this.cartasJugador = cartasJugador;
+    public void setCartasJugador(Carta carta) {
+        this.cartasJugador.add(carta);
     }
 
     public Apuesta getApuesta() {
@@ -80,6 +80,10 @@ public class Participacion {
 
     public void apostar(double monto) {
         apuesta.setMonto(monto);
+    }
+    
+    public double getSaldoJugador(){
+        return this.jugador.getSaldo();
     }
 
 }

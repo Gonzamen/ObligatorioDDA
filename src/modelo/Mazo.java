@@ -6,11 +6,22 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
  * @author gonza
  */
 public class Mazo {
+
     private ArrayList<Carta> cartas = new ArrayList();
+
+    public void barajar() {
+        Collections.shuffle(cartas);
+    }
+
+    public ArrayList<Carta> getCartas() {
+        return cartas;
+    }
+    
 }

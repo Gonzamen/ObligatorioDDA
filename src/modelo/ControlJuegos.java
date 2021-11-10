@@ -17,4 +17,10 @@ public class ControlJuegos {
     public void agregarJuego(Juego juego){
         juegos.add(juego);
     }
+    
+    public ArrayList<Juego> getJuegos(){
+        return this.juegos;
+    }
+    
+    
 }

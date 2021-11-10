@@ -13,4 +13,22 @@ public class Sistema {
 
     private ControlJuegos controlJuegos = new ControlJuegos();
     private ControlUsuarios controlUsuarios = new ControlUsuarios();
+
+    public void agregarJuego(Juego juego) {
+        controlJuegos.agregarJuego(juego);
+    }
+
+    public void agregarJugador(Jugador jug) {
+        controlUsuarios.agregarJugador(jug);
+    }
+
+    public void agregarAdministrador(Administrador adm) {
+        controlUsuarios.agregarAdministrador(adm);
+    }
+
+    public boolean inciarSesion(String nomUsuario, String password) {
+        return controlUsuarios.inciarSesion(nomUsuario, password);
+    }
+    
+    
 }

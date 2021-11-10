@@ -13,34 +13,40 @@ import java.util.ArrayList;
  */
 public class Juego {
     private ArrayList<Participacion> jugadores = new ArrayList();
-    private Mano mano;
+    private ArrayList<Mano> mano = new ArrayList();
     private int luz = 5;
 
     public Juego() {
-        this.mano = new Mano(luz*jugadores.size());
+        
     }
     
     public ArrayList<Participacion> getJugadores() {
         return jugadores;
     }
 
-    public void setJugadores(ArrayList<Participacion> jugadores) {
-        this.jugadores = jugadores;
+    public boolean agregarJugador(Participacion jugador) {
+        if(jugador.getSaldoJugador()>=this.luz){
+            return jugadores.add(jugador);        
+        }
+        return false;
     }
 
-    public Mano getManos() {
+    public ArrayList<Mano> getManos() {
         return mano;
     }
-
-    public void setManos(Mano mano) {
-        this.mano = mano;
+    
+    public void generarMano(){
+        for(Participacion p : this.jugadores){
+            if(p.getSaldoJugador()<this.luz){
+                retirarParticipante(p);
+            }
+        }
+        mano.add(new Mano(luz*jugadores.size(),this.jugadores));
     }
     
-    public void verificarSaldoJugadores(){
-        
-    }
     
-    public void retirarParticipante(){
-        
+    
+    public boolean retirarParticipante(Participacion jugador){
+        return jugadores.remove(jugador);
     }
 }
