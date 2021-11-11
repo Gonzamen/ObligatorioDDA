@@ -97,9 +97,9 @@ public class Participacion implements Comparable<Participacion> {
 
     @Override
     public int compareTo(Participacion o) {
-        if (this.figura.compareTo(o.getFigura()) == 1) {
+        if (cartasSinFigura(o) == 1 || this.figura.compareTo(o.getFigura()) == 1) {
             return 1;
-        } else if (this.figura.compareTo(o.getFigura()) == -1) {
+        } else if (cartasSinFigura(o) == -1 || this.figura.compareTo(o.getFigura()) == -1) {
             return -1;
         } else {
             if (this.figura instanceof Par) {
@@ -108,7 +108,7 @@ public class Participacion implements Comparable<Participacion> {
                 } else if (this.compararCartas(o) == -1) {
                     return -1;
                 } else {
-                    
+                    return 0;
                 }
             }
             if (this.figura instanceof Pierna) {
@@ -126,20 +126,10 @@ public class Participacion implements Comparable<Participacion> {
                 }
             }
         }
-        if (this.figura != null && o.getFigura() == null) {
-            return 1;
-        } else if (this.figura == null && o.getFigura() != null) {
-            return -1;
-        } else {
-            if (this.compararCartas(o) == 1) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
+        return 3;
     }
 
-    public int compararCartas(Participacion o) {
+    private int compararCartas(Participacion o) {
         int aux1 = 0;
         int aux2 = 0;
         for (Carta c : this.cartasJugador) {
@@ -154,8 +144,22 @@ public class Participacion implements Comparable<Participacion> {
         }
         if (aux1 > aux2) {
             return 1;
-        } else{
+        } else {
             return -1;
+        }
+    }
+
+    private int cartasSinFigura(Participacion o) {
+        if (this.figura != null && o.getFigura() == null) {
+            return 1;
+        } else if (this.figura == null && o.getFigura() != null) {
+            return -1;
+        } else {
+            if (this.compararCartas(o) == 1) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
     }
 }
