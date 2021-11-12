@@ -92,7 +92,7 @@ public class Mano {
         Participacion ganador = null;
         if (!this.todosPasan()) {
             Collections.sort(participantes);
-            this.setGanador(participantes.get(0));
+            this.setGanador(participantes.get(participantes.size()));
             ganador = this.ganador;
         }
         juego.generarMano(this.pozo);

@@ -65,7 +65,7 @@ public class Participacion implements Comparable<Participacion> {
         int contadornum = 0;
         int contadorpalo = 0;
         for (int i = 0; i < cartasJugador.size(); i++) {
-            for (int j = i+1; j < cartasJugador.size(); j++) {
+            for (int j = i + 1; j < cartasJugador.size(); j++) {
                 if (cartasJugador.get(i).getNumero() == cartasJugador.get(j).getNumero()) {
                     contadornum++;
                 }
@@ -101,34 +101,40 @@ public class Participacion implements Comparable<Participacion> {
 
     @Override
     public int compareTo(Participacion o) {
-        if (cartasSinFigura(o) == 1 || this.figura.compareTo(o.getFigura()) == 1) {
-            return 1;
-        } else if (cartasSinFigura(o) == -1 || this.figura.compareTo(o.getFigura()) == -1) {
-            return -1;
+        if (this.figura == null && o.getFigura() == null) {
+            if(this.compararCartas(o)==1){
+                return 1;
+            }else if(this.compararCartas(o)==-1){
+                return -1;
+            }
         } else {
-            if (this.figura instanceof Par && o.getFigura() instanceof Par) {
-                if (this.resolverPar(o) == 1) {
-                    return 1;
-                } else if (this.resolverPar(o) == -1) {
-                    return -1;
-                }
-            }
-            if (this.figura instanceof Pierna && o.getFigura() instanceof Pierna) {
-                if (this.resolverPierna(o) == 1) {
-                    return 1;
-                } else if(this.resolverPierna(o) == -1) {
-                    return -1;
-                }
-            }
-            if (this.figura instanceof Color && o.getFigura() instanceof Color) {
-                if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == 1) {
-                    return 1;
-                } else if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == -1) {
-                    return -1;
+            if (this.cartasSinFigura(o) == 1 || this.figura.compareTo(o.getFigura()) == 1) {
+                return 1;
+            } else if (this.cartasSinFigura(o) == -1 || this.figura.compareTo(o.getFigura()) == -1) {
+                return -1;
+            } else {
+                if (this.figura instanceof Par && o.getFigura() instanceof Par) {
+                    if (this.resolverPar(o) == 1) {
+                        return 1;
+                    } else if (this.resolverPar(o) == -1) {
+                        return -1;
+                    }
+                }else if (this.figura instanceof Pierna && o.getFigura() instanceof Pierna) {
+                    if (this.resolverPierna(o) == 1) {
+                        return 1;
+                    } else if (this.resolverPierna(o) == -1) {
+                        return -1;
+                    }
+                }else if (this.figura instanceof Color && o.getFigura() instanceof Color) {
+                    if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == 1) {
+                        return 1;
+                    } else if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == -1) {
+                        return -1;
+                    }
                 }
             }
         }
-        return 3;
+        return 0;
     }
 
     private int compararCartas(Participacion o) {
@@ -170,30 +176,30 @@ public class Participacion implements Comparable<Participacion> {
         int aux1 = 0;
         int aux2 = 0;
         for (int i = 0; i < this.cartasJugador.size(); i++) {
-            for (int j = i+1; j < this.cartasJugador.size(); j++) {
+            for (int j = i + 1; j < this.cartasJugador.size(); j++) {
                 if (this.cartasJugador.get(i).getNumero() == this.cartasJugador.get(j).getNumero()) {
                     contador++;
-                    if(contador == 3){
+                    if (contador == 3) {
                         aux1 = this.cartasJugador.get(i).getNumero();
                         contador = 0;
-                    }                
+                    }
                 }
             }
         }
         for (int i = 0; i < o.cartasJugador.size(); i++) {
-            for (int j = i+1; j < o.cartasJugador.size(); j++) {
+            for (int j = i + 1; j < o.cartasJugador.size(); j++) {
                 if (o.cartasJugador.get(i).getNumero() == o.cartasJugador.get(j).getNumero()) {
                     contador++;
-                    if(contador == 3){
+                    if (contador == 3) {
                         aux2 = this.cartasJugador.get(i).getNumero();
                         contador = 0;
-                    }                
+                    }
                 }
             }
         }
-        if(aux1 > aux2){
+        if (aux1 > aux2) {
             return 1;
-        }else{
+        } else {
             return -1;
         }
     }
@@ -204,14 +210,14 @@ public class Participacion implements Comparable<Participacion> {
         int auxmayor1 = 0;
         int auxmayor2 = 0;
         for (int i = 0; i < this.cartasJugador.size(); i++) {
-            for (int j = i+1; j < this.cartasJugador.size(); j++) {
+            for (int j = i + 1; j < this.cartasJugador.size(); j++) {
                 if (this.cartasJugador.get(i).getNumero() == this.cartasJugador.get(j).getNumero() && this.cartasJugador.get(i).getNumero() > aux1) {
                     aux1 = this.cartasJugador.get(i).getNumero();
                 }
             }
         }
         for (int i = 0; i < o.cartasJugador.size(); i++) {
-            for (int j = i+1; j < this.cartasJugador.size(); j++) {
+            for (int j = i + 1; j < this.cartasJugador.size(); j++) {
                 if (o.cartasJugador.get(i).getNumero() == o.cartasJugador.get(j).getNumero() && o.cartasJugador.get(i).getNumero() > aux1) {
                     aux2 = o.cartasJugador.get(i).getNumero();
                 }

@@ -9,13 +9,14 @@ package modelo;
  *
  * @author gonza
  */
-public class Figura implements Comparable<Figura>{
+public class Figura implements Comparable<Figura> {
+
     private String nombre;
     private String definicion;
     private int valor;
 
     public Figura() {
-        
+
     }
 
     public String getNombre() {
@@ -41,22 +42,21 @@ public class Figura implements Comparable<Figura>{
     public void setValor(int valor) {
         this.valor = valor;
     }
-    
-    
 
     @Override
     public int compareTo(Figura o) {
-        if(this.valor > o.getValor()){
-            return 1;
-        }else if(this.valor < o.getValor()){
+        if (this == null && o!=null) {
             return -1;
-        }else{
-            return 0;
+        } else if (o == null && this!=null) {
+            return 1;
+        } else {
+            if (this.valor > o.getValor()) {
+                return 1;
+            } else if (this.valor < o.getValor()) {
+                return -1;
+            } else {
+                return 0;
+            }
         }
     }
-    
-    
-    
-    
-    
 }
