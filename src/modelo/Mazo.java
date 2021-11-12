@@ -24,4 +24,8 @@ public class Mazo {
         return cartas;
     }
     
+    public void setCartas(ArrayList<Carta> cartas){
+        this.cartas = cartas;
+    }
+    
 }

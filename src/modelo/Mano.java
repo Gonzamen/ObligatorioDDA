@@ -6,14 +6,16 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
  * @author gonza
  */
 public class Mano {
+
     private double pozo;
-    private Participacion ganador = new Participacion();
+    private Participacion ganador = null;
     private ArrayList<Participacion> participantes = new ArrayList();
     private Mazo mazo = new Mazo();
     private Juego juego = new Juego();
@@ -22,7 +24,6 @@ public class Mano {
         this.pozo = luz;
         this.participantes = participantes;
     }
-    
 
     public double getPozo() {
         return pozo;
@@ -43,47 +44,73 @@ public class Mano {
     public Mazo getMazo() {
         return mazo;
     }
+    
+    public void setMazo(Mazo mazo){
+        this.mazo = mazo;
+    }
 
     public ArrayList<Participacion> getParticipantes() {
         return participantes;
     }
-    
-    public void barajarMazo(){
+
+    public void barajarMazo() {
         mazo.barajar();
     }
-    
-    public void repartirCartas(){
-        for(int i=0;i<=(this.participantes.size()*5) - 1;i++){
-            for(Participacion p : this.participantes){
+
+    public void repartirCartas() {
+        for (int i = 0; i <= (this.participantes.size() * 5); i++) {
+            for (Participacion p : this.participantes) {
                 p.setCartasJugador(mazo.getCartas().get(i));
                 i++;
             }
         }
     }
-    
-    public boolean apostar(Participacion participante, double monto){
-        for(Participacion p : this.participantes){
-            if(p.getSaldoJugador() < monto){
+
+    public boolean apostar(Participacion participante, double monto) {
+        for (Participacion p : this.participantes) {
+            if (p.getSaldoJugador() < monto) {
                 return false;
             }
         }
         participante.apostar(monto);
-        this.pozo+=monto;
+        participante.setNoApuesta(true);
+        this.pozo += monto;
         return true;
     }
-    
-    public void igualarApuesta(Participacion participante, double monto){
-        if(monto == 0){
+
+    public void igualarApuesta(Participacion participante, double monto) {
+        if (monto == 0) {
             this.participantes.remove(participante);
-        }else{
+        } else {
             participante.apostar(monto);
-            this.pozo+=monto;
+            participante.setNoApuesta(true);
+            this.pozo += monto;
         }
     }
-    
-    public void ganarMano(){
-        
-        juego.generarMano();
+
+    public Participacion ganadorMano() {
+        Participacion ganador = null;
+        if (!this.todosPasan()) {
+            Collections.sort(participantes);
+            this.setGanador(participantes.get(0));
+            ganador = this.ganador;
+        }
+        juego.generarMano(this.pozo);
+        return ganador;
     }
     
+
+    public boolean todosPasan() {
+        ArrayList<Participacion> pAux = new ArrayList();
+        for (Participacion p : this.participantes) {
+            if (p.getNoApuesta() == false) {
+                pAux.add(p);
+            }
+        }
+        if (pAux.size() == 4) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
