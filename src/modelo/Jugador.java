@@ -13,7 +13,8 @@ public class Jugador extends Usuario{
     
     private double saldo;
 
-    public Jugador() {
+    public Jugador(double saldo) {
+        this.saldo = saldo;
     }
        
 

@@ -14,13 +14,15 @@ import java.util.ArrayList;
 public class Participacion implements Comparable<Participacion> {
 
     private int cantidadParticipantes;
-    private Jugador jugador = new Jugador();
+    private Jugador jugador;
     private ArrayList<Carta> cartasJugador = new ArrayList();
     private Apuesta apuesta = new Apuesta();
     private Figura figura = null;
+    private boolean noApuesta = false;
 
-    public Participacion() {
-        this.setFigura();
+    public Participacion(Jugador jugador) {
+        this.jugador = jugador;
+        //this.setFigura();
     }
 
     public int getCantidadParticipantes() {
@@ -62,8 +64,8 @@ public class Participacion implements Comparable<Participacion> {
     public void setFigura() {
         int contadornum = 0;
         int contadorpalo = 0;
-        for (int i = 0; i <= cartasJugador.size(); i++) {
-            for (int j = 1; j <= cartasJugador.size(); j++) {
+        for (int i = 0; i < cartasJugador.size(); i++) {
+            for (int j = i+1; j < cartasJugador.size(); j++) {
                 if (cartasJugador.get(i).getNumero() == cartasJugador.get(j).getNumero()) {
                     contadornum++;
                 }
@@ -77,8 +79,10 @@ public class Participacion implements Comparable<Participacion> {
         }
         if (contadornum == 1) {
             this.figura = new Par();
-        } else {
+        } else if (contadornum == 2) {
             this.figura = new Pierna();
+        } else {
+            this.figura = null;
         }
     }
 
@@ -102,23 +106,21 @@ public class Participacion implements Comparable<Participacion> {
         } else if (cartasSinFigura(o) == -1 || this.figura.compareTo(o.getFigura()) == -1) {
             return -1;
         } else {
-            if (this.figura instanceof Par) {
-                if (this.compararCartas(o) == 1) {
+            if (this.figura instanceof Par && o.getFigura() instanceof Par) {
+                if (this.resolverPar(o) == 1) {
                     return 1;
-                } else if (this.compararCartas(o) == -1) {
-                    return -1;
-                } else {
-                    return 0;
-                }
-            }
-            if (this.figura instanceof Pierna) {
-                if (this.compararCartas(o) == 1) {
-                    return 1;
-                } else {
+                } else if (this.resolverPar(o) == -1) {
                     return -1;
                 }
             }
-            if (this.figura instanceof Color) {
+            if (this.figura instanceof Pierna && o.getFigura() instanceof Pierna) {
+                if (this.resolverPierna(o) == 1) {
+                    return 1;
+                } else if(this.resolverPierna(o) == -1) {
+                    return -1;
+                }
+            }
+            if (this.figura instanceof Color && o.getFigura() instanceof Color) {
                 if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == 1) {
                     return 1;
                 } else if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == -1) {
@@ -162,4 +164,88 @@ public class Participacion implements Comparable<Participacion> {
             }
         }
     }
+
+    private int resolverPierna(Participacion o) {
+        int contador = 0;
+        int aux1 = 0;
+        int aux2 = 0;
+        for (int i = 0; i < this.cartasJugador.size(); i++) {
+            for (int j = i+1; j < this.cartasJugador.size(); j++) {
+                if (this.cartasJugador.get(i).getNumero() == this.cartasJugador.get(j).getNumero()) {
+                    contador++;
+                    if(contador == 3){
+                        aux1 = this.cartasJugador.get(i).getNumero();
+                        contador = 0;
+                    }                
+                }
+            }
+        }
+        for (int i = 0; i < o.cartasJugador.size(); i++) {
+            for (int j = i+1; j < o.cartasJugador.size(); j++) {
+                if (o.cartasJugador.get(i).getNumero() == o.cartasJugador.get(j).getNumero()) {
+                    contador++;
+                    if(contador == 3){
+                        aux2 = this.cartasJugador.get(i).getNumero();
+                        contador = 0;
+                    }                
+                }
+            }
+        }
+        if(aux1 > aux2){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+
+    private int resolverPar(Participacion o) {
+        int aux1 = 0;
+        int aux2 = 0;
+        int auxmayor1 = 0;
+        int auxmayor2 = 0;
+        for (int i = 0; i < this.cartasJugador.size(); i++) {
+            for (int j = i+1; j < this.cartasJugador.size(); j++) {
+                if (this.cartasJugador.get(i).getNumero() == this.cartasJugador.get(j).getNumero() && this.cartasJugador.get(i).getNumero() > aux1) {
+                    aux1 = this.cartasJugador.get(i).getNumero();
+                }
+            }
+        }
+        for (int i = 0; i < o.cartasJugador.size(); i++) {
+            for (int j = i+1; j < this.cartasJugador.size(); j++) {
+                if (o.cartasJugador.get(i).getNumero() == o.cartasJugador.get(j).getNumero() && o.cartasJugador.get(i).getNumero() > aux1) {
+                    aux2 = o.cartasJugador.get(i).getNumero();
+                }
+            }
+        }
+        if (aux1 > aux2) {
+            return 1;
+        } else if (aux1 < aux2) {
+            return -1;
+        } else {
+            for (Carta c : this.cartasJugador) {
+                if (c.getNumero() != aux1 && c.getNumero() > auxmayor1) {
+                    auxmayor1 = c.getNumero();
+                }
+            }
+            for (Carta c : o.cartasJugador) {
+                if (c.getNumero() != aux1 && c.getNumero() > auxmayor2) {
+                    auxmayor2 = c.getNumero();
+                }
+            }
+            if (auxmayor1 > auxmayor2) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    public boolean getNoApuesta() {
+        return noApuesta;
+    }
+
+    public void setNoApuesta(boolean noApuesta) {
+        this.noApuesta = noApuesta;
+    }
+
 }

@@ -13,6 +13,12 @@ public class Palo implements Comparable<Palo>{
     private String nombre;
     private int valor;
 
+    public Palo(String nombre, int valor) {
+        this.nombre = nombre;
+        this.valor = valor;
+    }
+    
+
     public String getNombre() {
         return nombre;
     }

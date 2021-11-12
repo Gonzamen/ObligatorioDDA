@@ -13,6 +13,15 @@ public class Sistema {
 
     private ControlJuegos controlJuegos = new ControlJuegos();
     private ControlUsuarios controlUsuarios = new ControlUsuarios();
+    
+    private static Sistema instancia = new Sistema();
+
+    public static Sistema getInstancia() {
+        return instancia;
+    }
+
+    private Sistema() {
+    }
 
     public void agregarJuego(Juego juego) {
         controlJuegos.agregarJuego(juego);
