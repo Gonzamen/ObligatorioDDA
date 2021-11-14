@@ -30,9 +30,9 @@ public class ControlJuegos {
     }
     
     public void cargarFiguras(){
-        figuras.add(new Par());
-        figuras.add(new Pierna());
         figuras.add(new Color());
+        figuras.add(new Pierna());
+        figuras.add(new Par());
     }
 
     public ArrayList<Figura> getFiguras() {

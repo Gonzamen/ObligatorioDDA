@@ -30,7 +30,7 @@ public class Color extends Figura{
     
     @Override
     public Figura definirme(ArrayList<Carta> cartas) {
-        int contadorpalo = 0;
+        int contadorpalo = 1;
         Palo palo = cartas.get(0).getPalo();
         for(int i=1;i<cartas.size();i++){
             if(cartas.get(i).getPalo() == palo){

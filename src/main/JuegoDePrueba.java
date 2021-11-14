@@ -143,7 +143,7 @@ public class JuegoDePrueba {
         Participacion part3 = new Participacion(jug3);
         Participacion part4 = new Participacion(jug4);
         Juego juego1 = new Juego();
-        
+        sistema.agregarJuego(juego1);
         juego1.agregarJugador(part1);
         juego1.agregarJugador(part2);
         juego1.agregarJugador(part3);

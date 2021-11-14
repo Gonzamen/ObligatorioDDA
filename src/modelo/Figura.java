@@ -47,9 +47,9 @@ public abstract class Figura implements Comparable<Figura> {
 
     @Override
     public int compareTo(Figura o) {
-        if (this.valor > o.getValor()) {
+        if (this.valor < o.getValor()) {
             return 1;
-        } else if (this.valor < o.getValor()) {
+        } else if (this.valor > o.getValor()) {
             return -1;
         } else {
             return 0;

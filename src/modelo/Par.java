@@ -26,11 +26,11 @@ public class Par extends Figura {
     @Override
     public Figura definirme(ArrayList<Carta> cartas) {
         Par p = null;
-        int contadornum = 0;
+        int contadornum = 1;
         Carta carta = new Carta();
         boolean bandera = false;
-        for (int i = 0; i < cartas.size() || bandera; i++) {
-            for (int j = i + 1; j < cartas.size() || bandera; j++) {
+        for (int i = 0; i < cartas.size() && !bandera; i++) {
+            for (int j = i + 1; j < cartas.size() && !bandera; j++) {
                 if (cartas.get(i).getNumero() == cartas.get(j).getNumero()) {
                     contadornum++;
                     if (contadornum == 2) {

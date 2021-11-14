@@ -21,7 +21,7 @@ public class Mano {
     private Juego juego = new Juego();
 
     public Mano(double luz, ArrayList<Participacion> participantes) {
-        this.pozo = luz;
+        this.pozo = this.pozo + luz;
         this.participantes = participantes;
     }
 
@@ -90,10 +90,17 @@ public class Mano {
 
     public Participacion ganadorMano() {
         Participacion ganador = null;
-        if (!this.todosPasan()) {
+        if (!this.todosPasan()) {        
+            for(int i=0;i < participantes.size();i++){
+                if(!participantes.get(i).getNoApuesta()){
+                    participantes.remove(i);
+                }
+            }
             Collections.sort(participantes);
-            this.setGanador(participantes.get(participantes.size()));
+            this.setGanador(participantes.get(participantes.size()-1));
             ganador = this.ganador;
+            ganador.getJugador().setSaldo(pozo);
+            this.pozo = 0;
         }
         juego.generarMano(this.pozo);
         return ganador;

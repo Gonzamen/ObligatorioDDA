@@ -24,22 +24,22 @@ public class ControlUsuarios {
         administradores.add(adm);
     }
 
-    public boolean inciarSesion(String nomUsuario, String password) {
-        boolean encontrado = false;
+    public Usuario iniciarSesion(String nomUsuario, String password) {
+        Usuario encontrado = null;
         if (nomUsuario != "" || password != "") {
             for (Jugador j : jugadores) {
                 if (j.getNomUsuario() == nomUsuario && j.getContraseña() == password) {
-                    encontrado = true;
+                    encontrado = j;
                 }
             }
             for (Administrador a : administradores) {
                 if (a.getNomUsuario() == nomUsuario && a.getContraseña() == password) {
-                    encontrado = true;
+                    encontrado = a;
                 }
             }
             return encontrado;
         } else {
-            return false;
+            return encontrado;
         }
     }
 }

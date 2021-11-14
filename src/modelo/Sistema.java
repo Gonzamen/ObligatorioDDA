@@ -37,8 +37,8 @@ public class Sistema {
         controlUsuarios.agregarAdministrador(adm);
     }
 
-    public boolean inciarSesion(String nomUsuario, String password) {
-        return controlUsuarios.inciarSesion(nomUsuario, password);
+    public Usuario iniciarSesion(String nomUsuario, String password) {
+        return controlUsuarios.iniciarSesion(nomUsuario, password);
     }
 
     public ArrayList<Figura> getFiguras() {

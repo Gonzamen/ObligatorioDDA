@@ -31,7 +31,7 @@ public class Pierna extends Figura{
     @Override
     public Figura definirme(ArrayList<Carta> cartas) {
         Pierna p = null;
-        int contadornum = 0;
+        int contadornum = 1;
         Carta carta = new Carta();
         for(int i=0;i<cartas.size();i++){
             for(int j = i+1;j<cartas.size();j++){
