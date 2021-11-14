@@ -17,6 +17,10 @@ public class Carta {
         this.numero = numero;
         this.palo = palo;
     }
+
+    public Carta() {
+    }
+    
     
     public int getNumero() {
         return numero;

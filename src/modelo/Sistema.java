@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gonza
@@ -37,6 +39,10 @@ public class Sistema {
 
     public boolean inciarSesion(String nomUsuario, String password) {
         return controlUsuarios.inciarSesion(nomUsuario, password);
+    }
+
+    public ArrayList<Figura> getFiguras() {
+        return controlJuegos.getFiguras();
     }
     
     

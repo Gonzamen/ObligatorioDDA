@@ -5,15 +5,17 @@
  */
 package modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gonza
  */
-public class Figura implements Comparable<Figura> {
+public abstract class Figura implements Comparable<Figura> {
 
-    private String nombre;
-    private String definicion;
-    private int valor;
+    protected String nombre;
+    protected String definicion;
+    protected static int valor;
 
     public Figura() {
 
@@ -45,18 +47,14 @@ public class Figura implements Comparable<Figura> {
 
     @Override
     public int compareTo(Figura o) {
-        if (this == null && o!=null) {
-            return -1;
-        } else if (o == null && this!=null) {
+        if (this.valor > o.getValor()) {
             return 1;
+        } else if (this.valor < o.getValor()) {
+            return -1;
         } else {
-            if (this.valor > o.getValor()) {
-                return 1;
-            } else if (this.valor < o.getValor()) {
-                return -1;
-            } else {
-                return 0;
-            }
+            return 0;
         }
     }
+
+    public abstract Figura definirme(ArrayList<Carta> cartas);
 }

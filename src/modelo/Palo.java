@@ -17,6 +17,9 @@ public class Palo implements Comparable<Palo>{
         this.nombre = nombre;
         this.valor = valor;
     }
+
+    public Palo() {
+    }
     
 
     public String getNombre() {

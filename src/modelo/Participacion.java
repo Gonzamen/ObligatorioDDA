@@ -60,31 +60,17 @@ public class Participacion implements Comparable<Participacion> {
     public Figura getFigura() {
         return this.figura;
     }
-
-    public void setFigura() {
-        int contadornum = 0;
-        int contadorpalo = 0;
-        for (int i = 0; i < cartasJugador.size(); i++) {
-            for (int j = i + 1; j < cartasJugador.size(); j++) {
-                if (cartasJugador.get(i).getNumero() == cartasJugador.get(j).getNumero()) {
-                    contadornum++;
-                }
-                if (cartasJugador.get(i).getPalo() == cartasJugador.get(j).getPalo()) {
-                    contadorpalo++;
-                }
+    
+    public void setFigura(){     
+        for(Figura f : Sistema.getInstancia().getFiguras()){
+            Figura aux = f.definirme(cartasJugador);
+            if(aux != null){
+                this.figura = aux;
+                return;
             }
-        }
-        if (contadorpalo == 4) {
-            this.figura = new Color();
-        }
-        if (contadornum == 1) {
-            this.figura = new Par();
-        } else if (contadornum == 2) {
-            this.figura = new Pierna();
-        } else {
-            this.figura = null;
-        }
+        }      
     }
+    
 
     public void apostar(double monto) {
         apuesta.setMonto(monto);
@@ -120,9 +106,9 @@ public class Participacion implements Comparable<Participacion> {
                         return -1;
                     }
                 }else if (this.figura instanceof Pierna && o.getFigura() instanceof Pierna) {
-                    if (this.resolverPierna(o) == 1) {
+                    if (this.figura.getCarta().getNumero() > o.getFigura().getCarta().getNumero()) {
                         return 1;
-                    } else if (this.resolverPierna(o) == -1) {
+                    } else if (this.figura.getCarta().getNumero() < o.getFigura().getCarta().getNumero()) {
                         return -1;
                     }
                 }else if (this.figura instanceof Color && o.getFigura() instanceof Color) {
@@ -163,11 +149,7 @@ public class Participacion implements Comparable<Participacion> {
         } else if (this.figura == null && o.getFigura() != null) {
             return -1;
         } else {
-            if (this.compararCartas(o) == 1) {
-                return 1;
-            } else {
-                return -1;
-            }
+            return 0;
         }
     }
 
