@@ -106,9 +106,11 @@ public class Participacion implements Comparable<Participacion> {
                         return -1;
                     }
                 }else if (this.figura instanceof Pierna && o.getFigura() instanceof Pierna) {
-                    if (this.figura.getCarta().getNumero() > o.getFigura().getCarta().getNumero()) {
+                    Pierna pierna1=(Pierna)this.figura;
+                    Pierna pierna2=(Pierna)o.getFigura();
+                    if (pierna1.getCarta().getNumero() > pierna2.getCarta().getNumero()) {
                         return 1;
-                    } else if (this.figura.getCarta().getNumero() < o.getFigura().getCarta().getNumero()) {
+                    } else if (pierna1.getCarta().getNumero() < pierna2.getCarta().getNumero()) {
                         return -1;
                     }
                 }else if (this.figura instanceof Color && o.getFigura() instanceof Color) {
