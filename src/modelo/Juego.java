@@ -15,10 +15,16 @@ public class Juego {
     private ArrayList<Participacion> jugadores = new ArrayList();
     private ArrayList<Mano> mano = new ArrayList();
     private int luz = 5;
+    private boolean iniciado = false;
 
     public Juego() {
-        
+        this.iniciado = true;
     }
+
+    public boolean getIniciado() {
+        return iniciado;
+    }
+       
     
     public ArrayList<Participacion> getJugadores() {
         return jugadores;

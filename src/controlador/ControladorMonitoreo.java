@@ -5,7 +5,6 @@
  */
 package controlador;
 
-import modelo.Sistema;
 import observador.Observable;
 import observador.Observador;
 
@@ -13,17 +12,7 @@ import observador.Observador;
  *
  * @author gonza
  */
-public class ControladorJuego implements Observador {
-    
-    private VistaJuego vista;
-    private Sistema fachada = Sistema.getInstancia();
-
-    public ControladorJuego(VistaJuego vista) {
-        this.vista = vista;
-        
-    }
-    
-    
+public class ControladorMonitoreo implements Observador{
 
     @Override
     public void actualizar(Object evento, Observable origen) {

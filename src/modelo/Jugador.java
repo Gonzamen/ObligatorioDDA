@@ -13,8 +13,26 @@ public class Jugador extends Usuario{
     
     private double saldo;
 
-    public Jugador(double saldo) {
+    public Jugador(String nomUsuario, String password, String nombreCompleto, double saldo) {
+        this.nomUsuario = nomUsuario;
+        this.contraseña = password;
+        this.nombreCompleto = nombreCompleto;
         this.saldo = saldo;
+    }
+
+    @Override
+    public String getNomUsuario() {
+        return nomUsuario;
+    }
+
+    @Override
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    @Override
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
        
 

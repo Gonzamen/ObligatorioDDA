@@ -23,6 +23,7 @@ public class Mano {
     public Mano(double luz, ArrayList<Participacion> participantes) {
         this.pozo = this.pozo + luz;
         this.participantes = participantes;
+        cargarMano();
     }
 
     public double getPozo() {
@@ -55,6 +56,12 @@ public class Mano {
 
     public void barajarMazo() {
         mazo.barajar();
+    }
+    
+    public void setearFiguras(){
+        for(Participacion p : participantes){
+            p.setFigura();
+        }
     }
 
     public void repartirCartas() {
@@ -119,5 +126,11 @@ public class Mano {
         } else {
             return false;
         }
+    }
+    
+    public void cargarMano(){
+        this.barajarMazo();
+        this.repartirCartas();
+        this.setearFiguras();
     }
 }

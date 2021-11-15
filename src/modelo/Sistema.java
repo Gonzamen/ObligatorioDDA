@@ -45,5 +45,22 @@ public class Sistema {
         return controlJuegos.getFiguras();
     }
     
+    public ArrayList<Juego> getJuegos(){
+        return controlJuegos.getJuegos();
+    }
+
+    public ArrayList<Administrador> getAdministradores() {
+        return controlUsuarios.getAdministradores();
+    }
+
+    public ArrayList<Jugador> getJugadores() {
+        return controlUsuarios.getJugadores();
+    }
+
+    public String iniciarJuego(Jugador jugador) {
+        return controlJuegos.iniciarJuego(jugador);
+    }
+
+
     
 }

@@ -9,12 +9,12 @@ package iu;
  *
  * @author gonza
  */
-public class Juego extends javax.swing.JDialog {
+public class iuJuego extends javax.swing.JDialog {
 
     /**
      * Creates new form Juego
      */
-    public Juego(java.awt.Frame parent, boolean modal) {
+    public iuJuego(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }

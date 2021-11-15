@@ -42,4 +42,14 @@ public class ControlUsuarios {
             return encontrado;
         }
     }
+
+    public ArrayList<Administrador> getAdministradores() {
+        return administradores;
+    }
+
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
+    
+    
 }

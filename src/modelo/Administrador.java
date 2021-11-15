@@ -11,7 +11,25 @@ package modelo;
  */
 public class Administrador extends Usuario{
 
-    public Administrador() {
+    public Administrador(String nomUsuario, String password, String nombreCompleto) {
+        this.nomUsuario = nomUsuario;
+        this.contraseña = password;
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    @Override
+    public String getNomUsuario() {
+        return nomUsuario;
+    }
+
+    @Override
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    @Override
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
     
 }

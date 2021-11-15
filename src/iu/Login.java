@@ -5,7 +5,11 @@
  */
 package iu;
 
+import javax.swing.JOptionPane;
+import modelo.Administrador;
+import modelo.Juego;
 import modelo.Jugador;
+import modelo.Participacion;
 import modelo.Sistema;
 
 /**
@@ -124,9 +128,26 @@ public class Login extends javax.swing.JFrame {
 
     private void login() {
         if (sistema.iniciarSesion(tUsuario.getText(), tPassword.getText()) instanceof Jugador) {
-            //Devolvemos juego
+            Jugador jugador1 = (Jugador) sistema.iniciarSesion(tUsuario.getText(), tPassword.getText());
+            switch (sistema.iniciarJuego(jugador1)) {
+                case "Ingresado":
+                    new iuJuego(null,false);
+                    break;
+                case "SinSaldo":
+                    JOptionPane.showMessageDialog(this, "Saldo insuficiente");
+                    break;
+                case "YaIngresado":
+                    JOptionPane.showMessageDialog(this, "Ya participa de una sala de espera");
+                    break;
+                default:
+                    break;
+            }
+
+        } else if (sistema.iniciarSesion(tUsuario.getText(), tPassword.getText()) instanceof Administrador) {
+            Administrador admin1 = (Administrador) sistema.iniciarSesion(tUsuario.getText(), tPassword.getText());
+            new MonitorearJuegos(null,false);
         } else {
-            //Devolvemos monitoreo
+            JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrecto");
         }
     }
 }

@@ -10,33 +10,16 @@ package modelo;
  * @author gonza
  */
 public abstract class Usuario {
-    private String nomUsuario;
-    private String contraseña;
-    private String nombreCompleto;
+    protected String nomUsuario;
+    protected String contraseña;
+    protected String nombreCompleto;
 
-    public String getNomUsuario() {
-        return nomUsuario;
-    }
+    public abstract String getNomUsuario();
 
-    public void setNomUsuario(String nomUsuario) {
-        this.nomUsuario = nomUsuario;
-    }
+    public abstract String getContraseña();
 
-    public String getContraseña() {
-        return contraseña;
-    }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
+    public abstract String getNombreCompleto();
     
     
 }
