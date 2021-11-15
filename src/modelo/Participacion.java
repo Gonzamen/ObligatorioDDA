@@ -78,25 +78,16 @@ public class Participacion implements Comparable<Participacion> {
     @Override
     public int compareTo(Participacion o) {
         if (this.figura == null && o.getFigura() == null) {
-            if (this.compararCartas(o) == 1) {
-                return 1;
-            } else if (this.compararCartas(o) == -1) {
-                return -1;
-            }
+            return this.compararCartas(o);
         } else {
             if (this.cartasSinFigura(o) == 1) {
                 return 1;
             } else if (this.cartasSinFigura(o) == -1) {
                 return -1;
             } else {
-                if (this.figura.compareTo(o.getFigura()) == 1) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return this.figura.compareTo(o.getFigura());
             }
         }
-        return 0;
     }
 
     private int compararCartas(Participacion o) {
