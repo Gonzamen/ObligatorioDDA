@@ -91,54 +91,37 @@ public class Participacion implements Comparable<Participacion> {
             } else {
                 if (this.figura.compareTo(o.getFigura()) == 1) {
                     return 1;
-                } else if (this.figura.compareTo(o.getFigura()) == -1) {
-                    return -1;
                 } else {
-                    if (this.figura instanceof Par && o.getFigura() instanceof Par) {
-                        if (this.resolverPar(o) == 1) {
-                            return 1;
-                        } else if (this.resolverPar(o) == -1) {
-                            return -1;
-                        }
-                    } else if (this.figura instanceof Pierna && o.getFigura() instanceof Pierna) {
-                        Pierna pierna1 = (Pierna) this.figura;
-                        Pierna pierna2 = (Pierna) o.getFigura();
-                        if (pierna1.getCarta().getNumero() > pierna2.getCarta().getNumero()) {
-                            return 1;
-                        } else if (pierna1.getCarta().getNumero() < pierna2.getCarta().getNumero()) {
-                            return -1;
-                        }
-                    } else if (this.figura instanceof Color && o.getFigura() instanceof Color) {
-                        if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == 1) {
-                            return 1;
-                        } else if (this.cartasJugador.get(0).getPalo().compareTo(o.getCartasJugador().get(0).getPalo()) == -1) {
-                            return -1;
-                        }
-                    }
+                    return -1;
                 }
             }
-
         }
         return 0;
     }
 
     private int compararCartas(Participacion o) {
-        int aux1 = 0;
-        int aux2 = 0;
+        Carta aux1 = new Carta();
+        Carta aux2 = new Carta();
         for (Carta c : this.cartasJugador) {
-            if (c.getNumero() > aux1) {
-                aux1 = c.getNumero();
+            if (c.getNumero() > aux1.getNumero()) {
+                aux1 = c;
             }
         }
         for (Carta c : o.getCartasJugador()) {
-            if (c.getNumero() > aux2) {
-                aux2 = c.getNumero();
+            if (c.getNumero() > aux2.getNumero()) {
+                aux2 = c;
             }
         }
-        if (aux1 > aux2) {
+        if (aux1.getNumero() > aux2.getNumero()) {
             return 1;
-        } else {
+        } else if (aux1.getNumero() < aux2.getNumero()) {
             return -1;
+        } else {
+            if (aux1.getPalo().getvalor() > aux2.getPalo().getvalor()) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
     }
 
@@ -149,91 +132,6 @@ public class Participacion implements Comparable<Participacion> {
             return -1;
         } else {
             return 0;
-        }
-    }
-
-    private int resolverPierna(Participacion o) {
-        int contador = 0;
-        int aux1 = 0;
-        int aux2 = 0;
-        for (int i = 0; i < this.cartasJugador.size(); i++) {
-            for (int j = i + 1; j < this.cartasJugador.size(); j++) {
-                if (this.cartasJugador.get(i).getNumero() == this.cartasJugador.get(j).getNumero()) {
-                    contador++;
-                    if (contador == 3) {
-                        aux1 = this.cartasJugador.get(i).getNumero();
-                        contador = 0;
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < o.cartasJugador.size(); i++) {
-            for (int j = i + 1; j < o.cartasJugador.size(); j++) {
-                if (o.cartasJugador.get(i).getNumero() == o.cartasJugador.get(j).getNumero()) {
-                    contador++;
-                    if (contador == 3) {
-                        aux2 = this.cartasJugador.get(i).getNumero();
-                        contador = 0;
-                    }
-                }
-            }
-        }
-        if (aux1 > aux2) {
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-
-    private int resolverPar(Participacion o) {
-        int aux1 = 0;
-        int aux2 = 0;
-        int auxmayor1 = 0;
-        int auxmayor2 = 0;
-        int paloalto1 = 0;
-        int paloalto2 = 0;
-        for (int i = 0; i < this.cartasJugador.size(); i++) {
-            for (int j = i + 1; j < this.cartasJugador.size(); j++) {
-                if (this.cartasJugador.get(i).getNumero() == this.cartasJugador.get(j).getNumero() && this.cartasJugador.get(i).getNumero() > aux1) {
-                    aux1 = this.cartasJugador.get(i).getNumero();
-                }
-            }
-        }
-        for (int i = 0; i < o.cartasJugador.size(); i++) {
-            for (int j = i + 1; j < this.cartasJugador.size(); j++) {
-                if (o.getCartasJugador().get(i).getNumero() == o.getCartasJugador().get(j).getNumero() && o.getCartasJugador().get(i).getNumero() > aux1) {
-                    aux2 = o.getCartasJugador().get(i).getNumero();
-                }
-            }
-        }
-        if (aux1 > aux2) {
-            return 1;
-        } else if (aux1 < aux2) {
-            return -1;
-        } else {
-            for (Carta c : this.cartasJugador) {
-                if (c.getNumero() != aux1 && c.getNumero() > auxmayor1) {
-                    auxmayor1 = c.getNumero();
-                    paloalto1 = c.getPalo().getvalor();
-                }
-            }
-            for (Carta c : o.getCartasJugador()) {
-                if (c.getNumero() != aux1 && c.getNumero() > auxmayor2) {
-                    auxmayor2 = c.getNumero();
-                    paloalto2 = c.getPalo().getvalor();
-                }
-            }
-            if (auxmayor1 > auxmayor2) {
-                return 1;
-            } else if (auxmayor1 < auxmayor2) {
-                return -1;
-            } else {
-                if (paloalto1 > paloalto2) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
         }
     }
 

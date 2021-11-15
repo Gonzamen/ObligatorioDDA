@@ -159,6 +159,8 @@ public class JuegoDePrueba {
         part4.setFigura();
         mano1.apostar(part2, 20);
         mano1.igualarApuesta(part4, 20);
+        mano1.igualarApuesta(part3, 20);
+        mano1.igualarApuesta(part1, 20);
         
         Participacion ganador = mano1.ganadorMano();
     }

@@ -46,6 +46,16 @@ public class Pierna extends Figura{
         }
         return p;
     }
+
+    @Override
+    public int desempatar(Figura o) {
+        Pierna pierna1 = (Pierna) o;
+        if(this.carta.getNumero() > pierna1.getCarta().getNumero()){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
     
 
     

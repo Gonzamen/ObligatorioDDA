@@ -28,6 +28,7 @@ public class Color extends Figura{
     
     
     
+    
     @Override
     public Figura definirme(ArrayList<Carta> cartas) {
         int contadorpalo = 1;
@@ -42,6 +43,12 @@ public class Color extends Figura{
         }else{
             return null;
         }
+    }
+
+    @Override
+    public int desempatar(Figura o) {
+        Color color1 = (Color) o;
+        return this.getPalo().compareTo(color1.getPalo());
     }
     
     

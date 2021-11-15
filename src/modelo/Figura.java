@@ -52,9 +52,11 @@ public abstract class Figura implements Comparable<Figura> {
         } else if (this.valor > o.getValor()) {
             return -1;
         } else {
-            return 0;
+            return this.desempatar(o);
         }
     }
 
     public abstract Figura definirme(ArrayList<Carta> cartas);
+    
+    public abstract int desempatar(Figura o);
 }

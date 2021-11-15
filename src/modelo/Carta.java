@@ -33,5 +33,6 @@ public class Carta {
     public void setPalo(Palo palo) {
         this.palo = palo;
     }
+
     
 }
