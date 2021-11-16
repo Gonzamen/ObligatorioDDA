@@ -26,10 +26,10 @@ public class JuegoDePrueba {
         Jugador jug2 = new Jugador(150);
         Jugador jug3 = new Jugador(150);
         Jugador jug4 = new Jugador(150);
-        Palo corazon = new Palo("Corazón",4);
-        Palo diamante = new Palo("Diamante",3);
-        Palo trebol = new Palo("Trébol",2);
-        Palo pique = new Palo("Pique",1);
+        Palo corazon = new Palo("corazón",4);
+        Palo diamante = new Palo("diamante",3);
+        Palo trebol = new Palo("trébol",2);
+        Palo pique = new Palo("pique",1);
         Carta carta1 = new Carta(2,corazon);
         Carta carta2 = new Carta(3,corazon);
         Carta carta3 = new Carta(4,corazon);

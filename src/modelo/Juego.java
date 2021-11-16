@@ -15,23 +15,34 @@ public class Juego {
     private ArrayList<Participacion> jugadores = new ArrayList();
     private ArrayList<Mano> mano = new ArrayList();
     private int luz = 5;
+    private int jugadoresMax = 5;
     private boolean iniciado = false;
 
     public Juego() {
         this.iniciado = true;
     }
+      
 
     public boolean getIniciado() {
         return iniciado;
     }
-       
+
+    public int getJugadoresMax() {
+        return jugadoresMax;
+    }
+
+    public void setJugadoresMax(int jugadoresMax) {
+        this.jugadoresMax = jugadoresMax;
+    }
+    
+    
     
     public ArrayList<Participacion> getJugadores() {
         return jugadores;
     }
 
     public boolean agregarJugador(Participacion jugador) {
-        if(jugador.getSaldoJugador()>=this.luz){
+        if(jugador.getSaldoJugador()>=this.luz && this.jugadores.size() < this.jugadoresMax){
             return jugadores.add(jugador);        
         }
         return false;

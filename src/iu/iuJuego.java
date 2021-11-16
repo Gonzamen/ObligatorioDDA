@@ -7,7 +7,17 @@ package iu;
 
 import controlador.ControladorJuego;
 import controlador.VistaJuego;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import modelo.Carta;
+import modelo.Juego;
 import modelo.Participacion;
+import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -20,10 +30,10 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
      */
     private ControladorJuego controlador;
     
-    public iuJuego(java.awt.Frame parent, boolean modal, Participacion participante) {
+    public iuJuego(java.awt.Frame parent, boolean modal, Participacion participante, Juego juego) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorJuego(this,participante);
+        controlador = new ControladorJuego(this,participante,juego);
     }
 
     /**
@@ -35,152 +45,113 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        lJugador2 = new javax.swing.JLabel();
-        lJugador3 = new javax.swing.JLabel();
-        lJugador4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lListaParticipantes = new javax.swing.JList();
+        bRetirarse = new javax.swing.JButton();
+        bApostar = new javax.swing.JButton();
+        bPasar = new javax.swing.JButton();
+        bIgualar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tSaldoPropio = new javax.swing.JTextField();
+        tSaldoJugador = new javax.swing.JTextField();
+        lCarta5 = new javax.swing.JLabel();
+        lCarta1 = new javax.swing.JLabel();
+        lCarta2 = new javax.swing.JLabel();
+        lCarta3 = new javax.swing.JLabel();
+        lCarta4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         tPozo = new javax.swing.JTextField();
-        tApuesta = new javax.swing.JTextField();
-        tSaldoJ3 = new javax.swing.JTextField();
-        tSaldoJ2 = new javax.swing.JTextField();
-        tSaldoJ4 = new javax.swing.JTextField();
-        tSaldoJ1 = new javax.swing.JTextField();
+        tApuestaActual = new javax.swing.JTextField();
+        tSalaEspera = new javax.swing.JTextField();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton2.setText("Retirarse");
+        jPanel1.setLayout(null);
 
-        jButton3.setText("Apostar");
+        jScrollPane2.setViewportView(lListaParticipantes);
 
-        jButton4.setText("Pasar");
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(680, 20, 180, 230);
 
-        lJugador2.setText("Jugador2");
+        bRetirarse.setText("Retirarse");
+        jPanel1.add(bRetirarse);
+        bRetirarse.setBounds(30, 180, 100, 40);
 
-        lJugador3.setText("Jugador3");
+        bApostar.setText("Apostar");
+        jPanel1.add(bApostar);
+        bApostar.setBounds(30, 30, 100, 40);
 
-        lJugador4.setText("Jugador4");
+        bPasar.setText("Pasar");
+        jPanel1.add(bPasar);
+        bPasar.setBounds(30, 130, 100, 40);
 
-        jLabel4.setText("Saldo:");
+        bIgualar.setText("Igualar");
+        jPanel1.add(bIgualar);
+        bIgualar.setBounds(30, 80, 100, 40);
 
-        jLabel5.setText("Saldo:");
+        jLabel1.setText("Saldo jugador:");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(460, 110, 90, 30);
 
-        jLabel6.setText("Saldo:");
+        jLabel2.setText("Tu Saldo:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(180, 110, 60, 30);
+        jPanel1.add(tSaldoPropio);
+        tSaldoPropio.setBounds(240, 110, 64, 22);
+        jPanel1.add(tSaldoJugador);
+        tSaldoJugador.setBounds(550, 110, 64, 22);
+        jPanel1.add(lCarta5);
+        lCarta5.setBounds(730, 350, 130, 210);
+        jPanel1.add(lCarta1);
+        lCarta1.setBounds(40, 350, 130, 210);
+        jPanel1.add(lCarta2);
+        lCarta2.setBounds(210, 350, 130, 210);
+        jPanel1.add(lCarta3);
+        lCarta3.setBounds(380, 350, 130, 210);
+        jPanel1.add(lCarta4);
+        lCarta4.setBounds(550, 350, 130, 210);
 
-        jLabel7.setText("Saldo:");
+        jLabel3.setText("Pozo:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(220, 290, 29, 16);
 
-        jLabel8.setText("Pozo:");
-
-        jLabel9.setText("Apuesta:");
+        jLabel4.setText("Apuesta Actual:");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(390, 280, 90, 30);
+        jPanel1.add(tPozo);
+        tPozo.setBounds(260, 290, 64, 22);
+        jPanel1.add(tApuestaActual);
+        tApuestaActual.setBounds(490, 290, 64, 22);
+        jPanel1.add(tSalaEspera);
+        tSalaEspera.setBounds(680, 280, 180, 50);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tSaldoJ1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(116, 116, 116))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tSaldoJ2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(663, 663, 663)
-                .addComponent(jLabel7)
-                .addContainerGap(12, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tSaldoJ4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lJugador2)
-                .addGap(231, 231, 231)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lJugador3)
-                            .addComponent(tPozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(tSaldoJ3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(tApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lJugador4)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(371, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(tSaldoJ1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(226, 226, 226)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lJugador2)
-                    .addComponent(lJugador4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(tSaldoJ2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tSaldoJ4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lJugador3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(tSaldoJ3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(tPozo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(tApuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(230, 230, 230))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
         );
 
         pack();
@@ -191,23 +162,57 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton bApostar;
+    private javax.swing.JButton bIgualar;
+    private javax.swing.JButton bPasar;
+    private javax.swing.JButton bRetirarse;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel lJugador2;
-    private javax.swing.JLabel lJugador3;
-    private javax.swing.JLabel lJugador4;
-    private javax.swing.JTextField tApuesta;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lCarta1;
+    private javax.swing.JLabel lCarta2;
+    private javax.swing.JLabel lCarta3;
+    private javax.swing.JLabel lCarta4;
+    private javax.swing.JLabel lCarta5;
+    private javax.swing.JList lListaParticipantes;
+    private javax.swing.JTextField tApuestaActual;
     private javax.swing.JTextField tPozo;
-    private javax.swing.JTextField tSaldoJ1;
-    private javax.swing.JTextField tSaldoJ2;
-    private javax.swing.JTextField tSaldoJ3;
-    private javax.swing.JTextField tSaldoJ4;
+    private javax.swing.JTextField tSalaEspera;
+    private javax.swing.JTextField tSaldoJugador;
+    private javax.swing.JTextField tSaldoPropio;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void agregarParticipante(ArrayList<Participacion> participantes) {
+        lListaParticipantes.setListData(participantes.toArray());
+    }
+
+    @Override
+    public void mostrarFaltantes(int faltantes) {
+        tSalaEspera.setText("Esperando inicio de juego, faltan ingresar: "+ faltantes + " jugadores");
+    }
+
+    @Override
+    public void cargarCartas(ArrayList<Carta> cartasJugador) {
+        Image image;
+        try{
+            image = ImageIO.read(new File("images/"+cartasJugador.get(0).toString()));
+            lCarta1.setIcon(new ImageIcon(image));
+            image = ImageIO.read(new File("images/"+cartasJugador.get(1).toString()));
+            lCarta2.setIcon(new ImageIcon(image));
+            image = ImageIO.read(new File("images/"+cartasJugador.get(2).toString()));
+            lCarta3.setIcon(new ImageIcon(image));
+            image = ImageIO.read(new File("images/"+cartasJugador.get(3).toString()));
+            lCarta4.setIcon(new ImageIcon(image));
+            image = ImageIO.read(new File("images/"+cartasJugador.get(4).toString()));
+            lCarta5.setIcon(new ImageIcon(image));
+        }catch(IOException ex){
+            JOptionPane.showMessageDialog(this, ex);;
+        }
+    }
 }

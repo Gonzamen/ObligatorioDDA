@@ -5,11 +5,21 @@
  */
 package controlador;
 
+import java.util.ArrayList;
+import modelo.Carta;
+import modelo.Participacion;
+
 /**
  *
  * @author gonza
  */
 public interface VistaJuego {
+
+    public void agregarParticipante(ArrayList<Participacion> participantes);
+
+    public void mostrarFaltantes(int faltantes);
+
+    public void cargarCartas(ArrayList<Carta> cartasJugador);
     
     
 }

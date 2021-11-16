@@ -135,7 +135,7 @@ public class Login extends javax.swing.JFrame {
             }else if(juego == null){
                 JOptionPane.showMessageDialog(this, "Ya participa de una sala de espera");
             }else{               
-                new iuJuego(null,false,sistema.buscarJugador(jugador1, juego));
+                new iuJuego(null,false,sistema.buscarJugador(jugador1, juego),juego);
             }
         } else if (sistema.iniciarSesion(tUsuario.getText(), tPassword.getText()) instanceof Administrador) {
             Administrador admin1 = (Administrador) sistema.iniciarSesion(tUsuario.getText(), tPassword.getText());

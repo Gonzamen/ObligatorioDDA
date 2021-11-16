@@ -134,4 +134,9 @@ public class Participacion implements Comparable<Participacion> {
         this.noApuesta = noApuesta;
     }
 
+    @Override
+    public String toString() {
+        return jugador.getNomUsuario();
+    }
+
 }

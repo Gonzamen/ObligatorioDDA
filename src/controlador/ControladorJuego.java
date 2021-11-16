@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import modelo.Juego;
 import modelo.Participacion;
 import modelo.Sistema;
 import observador.Observable;
@@ -19,17 +20,45 @@ public class ControladorJuego implements Observador {
     private VistaJuego vista;
     private Sistema fachada = Sistema.getInstancia();
     private Participacion participante;
+    private Juego juego;
 
-    public ControladorJuego(VistaJuego vista, Participacion participante) {
+    public ControladorJuego(VistaJuego vista, Participacion participante, Juego juego) {
         this.vista = vista;
         this.participante = participante;
+        this.juego = juego;
+        fachada.agregar(this);
     }
-    
-    
+      
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(evento.equals(Sistema.Eventos.agregaParticipante)){ 
+            cargarParticipante();
+            mostrarFaltantes();
+        }
+    }
+
+    private void cargarParticipante() {
+        vista.agregarParticipante(juego.getJugadores());
+    }
+
+    private void mostrarFaltantes() {
+        int faltantes = juego.getJugadoresMax() - juego.getJugadores().size();      
+        vista.mostrarFaltantes(faltantes);
     }
     
+    private void repartirCartas(){
+        if(iniciarJuego()){
+            vista.cargarCartas(participante.getCartasJugador());
+        }
+    }
+    
+    private boolean iniciarJuego(){
+        if(juego.getJugadoresMax() == juego.getJugadores().size()){
+            juego.generarMano(juego.getLuz()*juego.getJugadoresMax());
+            return true;
+        }else{
+            return false;
+        }      
+    }
 }

@@ -121,7 +121,7 @@ public class Mano {
                 pAux.add(p);
             }
         }
-        if (pAux.size() == 4) {
+        if (pAux.size() == this.participantes.size()) {
             return true;
         } else {
             return false;

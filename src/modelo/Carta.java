@@ -34,5 +34,10 @@ public class Carta {
         this.palo = palo;
     }
 
+    @Override
+    public String toString() {
+        return this.numero + "" + this.palo.getNombre().charAt(0);
+    }
+
     
 }
