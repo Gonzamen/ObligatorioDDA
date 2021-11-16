@@ -68,6 +68,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         tPozo = new javax.swing.JTextField();
         tApuestaActual = new javax.swing.JTextField();
         tSalaEspera = new javax.swing.JTextField();
+        tApostar = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -96,6 +97,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         bRetirarse.setBounds(30, 180, 100, 40);
 
         bApostar.setText("Apostar");
+        bApostar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bApostarActionPerformed(evt);
+            }
+        });
         jPanel1.add(bApostar);
         bApostar.setBounds(30, 30, 100, 40);
 
@@ -115,9 +121,9 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         jPanel1.add(jLabel2);
         jLabel2.setBounds(180, 110, 60, 30);
         jPanel1.add(tSaldoPropio);
-        tSaldoPropio.setBounds(240, 110, 64, 22);
+        tSaldoPropio.setBounds(240, 110, 6, 26);
         jPanel1.add(tSaldoJugador);
-        tSaldoJugador.setBounds(550, 110, 64, 22);
+        tSaldoJugador.setBounds(550, 110, 6, 26);
         jPanel1.add(lCarta5);
         lCarta5.setBounds(730, 350, 130, 210);
         jPanel1.add(lCarta1);
@@ -131,17 +137,19 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
         jLabel3.setText("Pozo:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(220, 290, 29, 16);
+        jLabel3.setBounds(220, 290, 40, 20);
 
         jLabel4.setText("Apuesta Actual:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(390, 280, 90, 30);
         jPanel1.add(tPozo);
-        tPozo.setBounds(260, 290, 64, 22);
+        tPozo.setBounds(260, 290, 6, 26);
         jPanel1.add(tApuestaActual);
-        tApuestaActual.setBounds(490, 290, 64, 22);
+        tApuestaActual.setBounds(490, 290, 6, 26);
         jPanel1.add(tSalaEspera);
         tSalaEspera.setBounds(680, 280, 180, 50);
+        jPanel1.add(tApostar);
+        tApostar.setBounds(160, 40, 6, 26);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,6 +164,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bApostarActionPerformed
+        double monto=Double.parseDouble(tApostar.getText());
+        controlador.apostar(monto);
+    }//GEN-LAST:event_bApostarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,6 +193,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     private javax.swing.JLabel lCarta4;
     private javax.swing.JLabel lCarta5;
     private javax.swing.JList lListaParticipantes;
+    private javax.swing.JTextField tApostar;
     private javax.swing.JTextField tApuestaActual;
     private javax.swing.JTextField tPozo;
     private javax.swing.JTextField tSalaEspera;
@@ -215,4 +229,18 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
             JOptionPane.showMessageDialog(this, ex);;
         }
     }
+
+    @Override
+    public void mostrarApuesta(double monto) {
+        String montoAux= String.valueOf(monto);
+        tApuestaActual.setText(montoAux);
+    }
+
+    @Override
+    public void mostrarPozo(double monto) {
+        String montoAux=String.valueOf(monto);
+        tPozo.setText(montoAux);
+    }
+    
+    
 }

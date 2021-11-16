@@ -20,6 +20,9 @@ public interface VistaJuego {
     public void mostrarFaltantes(int faltantes);
 
     public void cargarCartas(ArrayList<Carta> cartasJugador);
+   
+    public void mostrarApuesta(double monto);
     
+    public void mostrarPozo(double monto);
     
 }
