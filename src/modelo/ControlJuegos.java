@@ -38,13 +38,13 @@ public class ControlJuegos {
         return figuras;
     }
 
-    public String iniciarJuego(Jugador jugador) {
+    public Juego iniciarJuego(Jugador jugador) {
         int contador = 0;
-        String resultado = "";
+        Juego resultado = null;
         for (Juego juego : this.juegos) {
             for (Participacion p : juego.getJugadores()) {
                 if (jugador.equals(p.getJugador())) {
-                    return resultado = "YaIngresado";
+                    return resultado;
                 }
             }
         }
@@ -53,35 +53,42 @@ public class ControlJuegos {
             this.agregarJuego(j);
             if (jugador.getSaldo() > j.getLuz()) {
                 j.agregarJugador(new Participacion(jugador));
-                return resultado = "Ingresado";
-            }else{
-                return resultado = "SinSaldo";
+                Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
+                resultado = j;
             }
         } else {
             for (Juego j : this.juegos) {
                 if (!j.getIniciado()) {
                     if (jugador.getSaldo() > j.getLuz()) {
                         j.agregarJugador(new Participacion(jugador));
-                        return resultado = "Ingresado";
-                    }else{
-                        return resultado = "SinSaldo";
+                        Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
+                        resultado = j;
                     }
                 } else {
                     contador++;
                     if (contador == this.juegos.size()) {
-                        Juego j3 = new Juego();
-                        this.agregarJuego(j3);
-                        if (jugador.getSaldo() > j3.getLuz()) {
-                            j3.agregarJugador(new Participacion(jugador));
-                            return resultado = "Ingresado";
-                        }else{
-                            return resultado = "SinSaldo";
+                        Juego j2 = new Juego();
+                        this.agregarJuego(j2);
+                        if (jugador.getSaldo() > j2.getLuz()) {
+                            j2.agregarJugador(new Participacion(jugador));
+                            Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
+                            resultado = j2;
                         }
                     }
                 }
             }
         }
        return resultado; 
+    }
+    
+    public Participacion buscarJugador(Jugador jug, Juego jue){
+        Participacion part = null; 
+        for(Participacion p : jue.getJugadores()){
+            if(p.getJugador().equals(jug)){
+                part = p;
+            }
+        }
+        return part;
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import modelo.Participacion;
 import modelo.Sistema;
 import observador.Observable;
 import observador.Observador;
@@ -17,10 +18,11 @@ public class ControladorJuego implements Observador {
     
     private VistaJuego vista;
     private Sistema fachada = Sistema.getInstancia();
+    private Participacion participante;
 
-    public ControladorJuego(VistaJuego vista) {
+    public ControladorJuego(VistaJuego vista, Participacion participante) {
         this.vista = vista;
-        
+        this.participante = participante;
     }
     
     

@@ -6,17 +6,20 @@
 package modelo;
 
 import java.util.ArrayList;
+import observador.Observable;
 
 /**
  *
  * @author gonza
  */
-public class Sistema {
+public class Sistema extends Observable{
 
     private ControlJuegos controlJuegos = new ControlJuegos();
     private ControlUsuarios controlUsuarios = new ControlUsuarios();
     
     private static Sistema instancia = new Sistema();
+    
+    public enum Eventos{agregaParticipante,nuevoContactoAlgunaAgenda};
 
     public static Sistema getInstancia() {
         return instancia;
@@ -57,8 +60,12 @@ public class Sistema {
         return controlUsuarios.getJugadores();
     }
 
-    public String iniciarJuego(Jugador jugador) {
+    public Juego iniciarJuego(Jugador jugador) {
         return controlJuegos.iniciarJuego(jugador);
+    }
+
+    public Participacion buscarJugador(Jugador jug, Juego jue) {
+        return controlJuegos.buscarJugador(jug, jue);
     }
 
 

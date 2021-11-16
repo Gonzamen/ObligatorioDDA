@@ -5,18 +5,25 @@
  */
 package iu;
 
+import controlador.ControladorJuego;
+import controlador.VistaJuego;
+import modelo.Participacion;
+
 /**
  *
  * @author gonza
  */
-public class iuJuego extends javax.swing.JDialog {
+public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
     /**
      * Creates new form Juego
      */
-    public iuJuego(java.awt.Frame parent, boolean modal) {
+    private ControladorJuego controlador;
+    
+    public iuJuego(java.awt.Frame parent, boolean modal, Participacion participante) {
         super(parent, modal);
         initComponents();
+        controlador = new ControladorJuego(this,participante);
     }
 
     /**

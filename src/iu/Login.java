@@ -129,20 +129,14 @@ public class Login extends javax.swing.JFrame {
     private void login() {
         if (sistema.iniciarSesion(tUsuario.getText(), tPassword.getText()) instanceof Jugador) {
             Jugador jugador1 = (Jugador) sistema.iniciarSesion(tUsuario.getText(), tPassword.getText());
-            switch (sistema.iniciarJuego(jugador1)) {
-                case "Ingresado":
-                    new iuJuego(null,false);
-                    break;
-                case "SinSaldo":
-                    JOptionPane.showMessageDialog(this, "Saldo insuficiente");
-                    break;
-                case "YaIngresado":
-                    JOptionPane.showMessageDialog(this, "Ya participa de una sala de espera");
-                    break;
-                default:
-                    break;
+            Juego juego = sistema.iniciarJuego(jugador1);
+            if(jugador1.getSaldo() < juego.getLuz()){
+                JOptionPane.showMessageDialog(this, "Saldo insuficiente");
+            }else if(juego == null){
+                JOptionPane.showMessageDialog(this, "Ya participa de una sala de espera");
+            }else{               
+                new iuJuego(null,false,sistema.buscarJugador(jugador1, juego));
             }
-
         } else if (sistema.iniciarSesion(tUsuario.getText(), tPassword.getText()) instanceof Administrador) {
             Administrador admin1 = (Administrador) sistema.iniciarSesion(tUsuario.getText(), tPassword.getText());
             new MonitorearJuegos(null,false);
