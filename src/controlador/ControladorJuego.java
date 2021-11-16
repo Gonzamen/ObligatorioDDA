@@ -61,4 +61,12 @@ public class ControladorJuego implements Observador {
             return false;
         }      
     }
+    
+    public void apostar(double monto){
+        if(fachada.getMano(participante.getJugador(), juego).apostar(participante, monto)){
+            participante.setNoApuesta(true);
+            participante.getJugador().setSaldo(monto);
+        }
+        vista.mostrarApuesta(monto);
+    }
 }

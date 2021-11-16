@@ -78,17 +78,32 @@ public class ControlJuegos {
                 }
             }
         }
-       return resultado; 
+        return resultado;
     }
-    
-    public Participacion buscarJugador(Jugador jug, Juego jue){
-        Participacion part = null; 
-        for(Participacion p : jue.getJugadores()){
-            if(p.getJugador().equals(jug)){
+
+    public Participacion buscarJugador(Jugador jug, Juego jue) {
+        Participacion part = null;
+        for (Participacion p : jue.getJugadores()) {
+            if (p.getJugador().equals(jug)) {
                 part = p;
             }
         }
         return part;
+    }
+
+    public Mano getMano(Jugador jugador, Juego jue) {
+        for (Juego j : juegos) {
+            if (j.equals(jue)) {
+                for (Mano m : j.getManos()) {
+                    for (Participacion p : m.getParticipantes()) {
+                        if (m.getGanador() == null && p.getJugador().equals(jugador)) {
+                            return m;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }
