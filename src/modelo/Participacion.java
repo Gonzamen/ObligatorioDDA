@@ -18,6 +18,7 @@ public class Participacion implements Comparable<Participacion> {
     private Apuesta apuesta = new Apuesta();
     private Figura figura = null;
     private boolean noApuesta = false;
+    private Juego juego;
 
     public Participacion(Jugador jugador) {
         this.jugador = jugador;
@@ -47,6 +48,16 @@ public class Participacion implements Comparable<Participacion> {
     public void setApuesta(Apuesta apuesta) {
         this.apuesta = apuesta;
     }
+
+    public Juego getJuego() {
+        return juego;
+    }
+
+    public void setJuego(Juego juego) {
+        this.juego = juego;
+    }
+    
+    
 
     public Figura getFigura() {
         return this.figura;

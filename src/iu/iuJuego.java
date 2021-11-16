@@ -30,10 +30,10 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
      */
     private ControladorJuego controlador;
     
-    public iuJuego(java.awt.Frame parent, boolean modal, Participacion participante, Juego juego) {
+    public iuJuego(java.awt.Frame parent, boolean modal, Participacion participante) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorJuego(this,participante,juego);
+        controlador = new ControladorJuego(this,participante);
     }
 
     /**

@@ -5,6 +5,8 @@
  */
 package iu;
 
+import modelo.Administrador;
+
 /**
  *
  * @author gonza
@@ -14,7 +16,7 @@ public class MonitorearJuegos extends javax.swing.JDialog {
     /**
      * Creates new form MonitorearJuegos
      */
-    public MonitorearJuegos(java.awt.Frame parent, boolean modal) {
+    public MonitorearJuegos(java.awt.Frame parent, boolean modal,Administrador admin) {
         super(parent, modal);
         initComponents();
     }
