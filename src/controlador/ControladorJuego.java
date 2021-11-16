@@ -22,10 +22,10 @@ public class ControladorJuego implements Observador {
     private Participacion participante;
     private Juego juego;
 
-    public ControladorJuego(VistaJuego vista, Participacion participante, Juego juego) {
+    public ControladorJuego(VistaJuego vista, Participacion participante) {
         this.vista = vista;
         this.participante = participante;
-        this.juego = juego;
+        this.juego = participante.getJuego();
         fachada.agregar(this);
     }
       

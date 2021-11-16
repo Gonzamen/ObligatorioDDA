@@ -23,24 +23,30 @@ public class ControlUsuarios {
     public void agregarAdministrador(Administrador adm) {
         administradores.add(adm);
     }
-
-    public Usuario iniciarSesion(String nomUsuario, String password) {
-        Usuario encontrado = null;
-        if (nomUsuario != "" || password != "") {
-            for (Jugador j : jugadores) {
-                if (j.getNomUsuario() == nomUsuario && j.getContraseña() == password) {
-                    encontrado = j;
-                }
-            }
-            for (Administrador a : administradores) {
-                if (a.getNomUsuario() == nomUsuario && a.getContraseña() == password) {
-                    encontrado = a;
-                }
-            }
-            return encontrado;
-        } else {
-            return encontrado;
+    
+    public Participacion loginJugador(String usuario,String pwd){
+        Usuario u=login(usuario,pwd,jugadores);
+        Participacion p=null;
+        if(u!=null){
+            Jugador j=(Jugador)u;
+            p=new Participacion(j);
         }
+        return p;
+    }
+    
+    public Administrador loginAdmin(String usuario,String pwd){
+        Usuario u=login(usuario,pwd,administradores);
+        return (Administrador)u;
+    }
+    
+    private Usuario login(String usuario,String pwd,ArrayList usuarios){
+        for(Object ob:usuarios){
+            Usuario u=(Usuario)ob;
+            if(u.getNomUsuario().equals(usuario) && u.getContraseña().equals(pwd)){
+                return u;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Administrador> getAdministradores() {

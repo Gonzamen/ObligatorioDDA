@@ -43,6 +43,7 @@ public class Juego {
 
     public boolean agregarJugador(Participacion jugador) {
         if(jugador.getSaldoJugador()>=this.luz && this.jugadores.size() < this.jugadoresMax){
+            jugador.setJuego(this);
             return jugadores.add(jugador);        
         }
         return false;

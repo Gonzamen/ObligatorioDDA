@@ -40,9 +40,6 @@ public class Sistema extends Observable{
         controlUsuarios.agregarAdministrador(adm);
     }
 
-    public Usuario iniciarSesion(String nomUsuario, String password) {
-        return controlUsuarios.iniciarSesion(nomUsuario, password);
-    }
 
     public ArrayList<Figura> getFiguras() {
         return controlJuegos.getFiguras();
@@ -66,6 +63,14 @@ public class Sistema extends Observable{
 
     public Participacion buscarJugador(Jugador jug, Juego jue) {
         return controlJuegos.buscarJugador(jug, jue);
+    }
+
+    public Participacion loginJugador(String usuario, String pwd) {
+        return controlUsuarios.loginJugador(usuario, pwd);
+    }
+
+    public Administrador loginAdmin(String usuario, String pwd) {
+        return controlUsuarios.loginAdmin(usuario, pwd);
     }
 
 

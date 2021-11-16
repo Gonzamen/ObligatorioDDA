@@ -5,6 +5,7 @@
  */
 package iu;
 
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 import modelo.Administrador;
 import modelo.Juego;
@@ -16,7 +17,7 @@ import modelo.Sistema;
  *
  * @author gonza
  */
-public class Login extends javax.swing.JFrame {
+public abstract class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
@@ -127,21 +128,22 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-        if (sistema.iniciarSesion(tUsuario.getText(), tPassword.getText()) instanceof Jugador) {
-            Jugador jugador1 = (Jugador) sistema.iniciarSesion(tUsuario.getText(), tPassword.getText());
+        Object usuario=invocarLogin(tUsuario.getText(), tPassword.getText());
+        if (usuario!=null) {
+            Jugador jugador1 = (Jugador)usuario;
             Juego juego = sistema.iniciarJuego(jugador1);
             if(jugador1.getSaldo() < juego.getLuz()){
                 JOptionPane.showMessageDialog(this, "Saldo insuficiente");
             }else if(juego == null){
                 JOptionPane.showMessageDialog(this, "Ya participa de una sala de espera");
-            }else{               
-                new iuJuego(null,false,sistema.buscarJugador(jugador1, juego),juego);
             }
-        } else if (sistema.iniciarSesion(tUsuario.getText(), tPassword.getText()) instanceof Administrador) {
-            Administrador admin1 = (Administrador) sistema.iniciarSesion(tUsuario.getText(), tPassword.getText());
-            new MonitorearJuegos(null,false);
+            proxCasoUso(usuario);
         } else {
             JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrecto");
         }
     }
+    
+    public abstract Object invocarLogin(String usuario,String pwd);
+    public abstract void proxCasoUso(Object obj);
+    
 }
