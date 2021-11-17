@@ -45,6 +45,7 @@ public class ControladorJuego implements Observador {
             actualizarPozo();
             actualizarApuesta();
             actualizarSaldo();
+            desactivarApuesta();
         }
     }
 
@@ -74,6 +75,7 @@ public class ControladorJuego implements Observador {
     public void apostar(double monto) {
         if (fachada.getMano(participante, juego).apostar(participante, monto)) {
             vista.mostrarApuesta(monto);
+            vista.notificarApuesta();
         }       
     }
 
@@ -101,6 +103,10 @@ public class ControladorJuego implements Observador {
     
     public void getSaldoJugador(Participacion p){
         vista.mostrarSaldoJugador(p.getSaldoJugador());
+    }
+    
+    private void desactivarApuesta(){
+        vista.notificarApuesta();
     }
 
 }
