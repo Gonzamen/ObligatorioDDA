@@ -88,6 +88,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
         jPanel1.setLayout(null);
 
+        lListaParticipantes.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lListaParticipantesValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(lListaParticipantes);
 
         jPanel1.add(jScrollPane2);
@@ -181,6 +186,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         controlador.apostar(monto);
     }//GEN-LAST:event_bApostarActionPerformed
 
+    private void lListaParticipantesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lListaParticipantesValueChanged
+        // TODO add your handling code here:
+        mostrarSaldoJugador();
+    }//GEN-LAST:event_lListaParticipantesValueChanged
+
     /**
      * @param args the command line arguments
      */
@@ -267,5 +277,12 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     private void cargarSaldo(){
         String saldo=String.valueOf(controlador.cargarSaldo());
         lTuSaldo.setText(saldo);
+    }
+
+    private void mostrarSaldoJugador() {
+        Object part = lListaParticipantes.getSelectedValue();
+        if (part != null) {
+            lSaldoJugador.setText(controlador.)
+        }
     }
 }
