@@ -57,7 +57,9 @@ public class Participacion implements Comparable<Participacion> {
         this.juego = juego;
     }
     
-    
+    public double getSaldo(){
+        return this.jugador.getSaldo();
+    }
 
     public Figura getFigura() {
         return this.figura;

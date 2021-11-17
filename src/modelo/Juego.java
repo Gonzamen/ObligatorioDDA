@@ -6,34 +6,31 @@
 package modelo;
 
 import java.util.ArrayList;
+import observador.Observable;
 
 /**
  *
  * @author gonza
  */
-public class Juego {
+public class Juego extends Observable {
+
     private ArrayList<Participacion> jugadores = new ArrayList();
     private ArrayList<Mano> mano = new ArrayList();
     private int luz = 5;
-    private int jugadoresMax = 5;
+    private int jugadoresMax = 3;
     private boolean iniciado = false;
-    private Mazo mazo;
+    
 
     public Juego() {
-        this.iniciado = true;
+        generarMano();
     }
-
-    public Mazo getMazo() {
-        return mazo;
-    }
-
-    public void setMazo(Mazo mazo) {
-        this.mazo = mazo;
-    }
-      
 
     public boolean getIniciado() {
         return iniciado;
+    }
+
+    public void setearIniciado() {
+        this.iniciado = true;
     }
 
     public int getJugadoresMax() {
@@ -43,43 +40,40 @@ public class Juego {
     public void setJugadoresMax(int jugadoresMax) {
         this.jugadoresMax = jugadoresMax;
     }
-    
-    
-    
+
     public ArrayList<Participacion> getJugadores() {
         return jugadores;
     }
 
-    public boolean agregarJugador(Participacion jugador) {
-        if(jugador.getSaldoJugador()>=this.luz && this.jugadores.size() < this.jugadoresMax){
-            jugador.setJuego(this);
-            return jugadores.add(jugador);        
-        }
-        return false;
+    public void agregarJugador(Participacion jugador) {
+        jugador.setJuego(this);
+        jugadores.add(jugador);
+        this.mano.get(0).agregarParticipante(jugador);
     }
 
     public ArrayList<Mano> getManos() {
         return mano;
     }
-    
-    public void generarMano(double pozoAnterior){
-        for(Participacion p : this.jugadores){
-            if(p.getSaldoJugador()<this.luz){
+
+    public void generarMano() {
+        mano.add(new Mano());
+    }
+
+    public void nuevaMano(double pozoAnterior) {
+        for (Participacion p : this.jugadores) {
+            if (p.getSaldoJugador() < this.luz) {
                 retirarParticipante(p);
             }
         }
-        mano.add(new Mano(luz*jugadores.size()+pozoAnterior,this.jugadores,this.mazo));
+        mano.add(new Mano(luz * jugadores.size() + pozoAnterior, this.jugadores));
     }
-    
-    
-    
-    public boolean retirarParticipante(Participacion jugador){
+
+    public boolean retirarParticipante(Participacion jugador) {
         return jugadores.remove(jugador);
     }
 
     public int getLuz() {
         return luz;
     }
-    
-    
+
 }

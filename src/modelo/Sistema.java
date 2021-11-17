@@ -19,7 +19,7 @@ public class Sistema extends Observable{
     
     private static Sistema instancia = new Sistema();
     
-    public enum Eventos{agregaParticipante,nuevoContactoAlgunaAgenda};
+    public enum Eventos{agregaParticipante};
 
     public static Sistema getInstancia() {
         return instancia;
@@ -75,10 +75,6 @@ public class Sistema extends Observable{
     
     public Mano getMano(Participacion jugador, Juego jue){
         return controlJuegos.getMano(jugador, jue);
-    }
-
-    public void agregarMazo(Mazo mazo) {
-        controlJuegos.agregarMazo(mazo);
     }
 
 

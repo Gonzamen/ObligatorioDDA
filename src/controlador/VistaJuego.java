@@ -25,5 +25,7 @@ public interface VistaJuego {
     
     public void mostrarPozo(double monto);
 
+    public void mostrarSaldo(double saldo);
+
     
 }

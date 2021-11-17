@@ -10,8 +10,9 @@ package modelo;
  * @author gonza
  */
 public class Carta {
+
     private int numero;
-    private Palo palo; 
+    private Palo palo;
 
     public Carta(int numero, Palo palo) {
         this.numero = numero;
@@ -20,8 +21,7 @@ public class Carta {
 
     public Carta() {
     }
-    
-    
+
     public int getNumero() {
         return numero;
     }
@@ -36,8 +36,18 @@ public class Carta {
 
     @Override
     public String toString() {
-        return this.numero + "" + this.palo.getNombre().charAt(0);
+        switch (this.numero) {
+            case 11:
+                return "J" + this.palo.getNombre().charAt(0) + ".gif";
+            case 12:
+                return "Q" + this.palo.getNombre().charAt(0) + ".gif";
+            case 13:
+                return "K" + this.palo.getNombre().charAt(0) + ".gif";
+            case 14:
+                return "A" + this.palo.getNombre().charAt(0) + ".gif";
+            default:
+                return this.numero + ""+this.palo.getNombre().charAt(0) + ".gif";
+        }
     }
 
-    
 }
