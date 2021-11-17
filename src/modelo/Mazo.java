@@ -138,7 +138,7 @@ public class Mazo {
         cartas.add(carta49);
         cartas.add(carta50);
         cartas.add(carta51);
-        cartas.add(carta52);
+        cartas.add(carta52);       
     }
     
 }

@@ -22,7 +22,7 @@ public class MonitorearJuegos extends javax.swing.JDialog {
     /**
      * Creates new form MonitorearJuegos
      */
-    public MonitorearJuegos(java.awt.Frame parent, boolean modal, Administrador admin, ArrayList<Juego> juegos) {
+    public MonitorearJuegos(java.awt.Frame parent, boolean modal, Administrador admin) {
         super(parent, modal);
         initComponents();
         mostrarJuegos();

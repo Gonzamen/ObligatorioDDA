@@ -67,6 +67,7 @@ public class ControladorJuego implements Observador {
         if (juego.getJugadoresMax() == juego.getJugadores().size()) {
             mano.iniciarMano(juego);
             repartirCartas();
+            actualizarPozo();
         }
     }
 
@@ -98,4 +99,8 @@ public class ControladorJuego implements Observador {
         return participante.getSaldo();
     }
     
+    public void getSaldoJugador(Participacion p){
+        vista.mostrarSaldoJugador(p.getSaldoJugador());
+    }
+
 }

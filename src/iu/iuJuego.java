@@ -188,7 +188,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
     private void lListaParticipantesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lListaParticipantesValueChanged
         // TODO add your handling code here:
-        mostrarSaldoJugador();
+        consultarSaldo();
     }//GEN-LAST:event_lListaParticipantesValueChanged
 
     /**
@@ -233,6 +233,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
             lFaltantes.setText("<html>Esperando inicio de juego.<br/>Faltan ingresar: "+ faltantes + " jugadores.</html>");
         }else if(faltantes == 0){
             controlador.iniciarJuego();
+            lFaltantes.setText("");
         }
         
     }
@@ -240,16 +241,17 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     @Override
     public void cargarCartas(ArrayList<Carta> cartasJugador) {
         Image image;
+        
         try{
-            image = ImageIO.read(new File("images/"+cartasJugador.get(0).toString()));
+            image = ImageIO.read(new File("src/images/"+cartasJugador.get(0).toString()));
             lCarta1.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("images/"+cartasJugador.get(1).toString()));
+            image = ImageIO.read(new File("src/images/"+cartasJugador.get(1).toString()));
             lCarta2.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("images/"+cartasJugador.get(2).toString()));
+            image = ImageIO.read(new File("src/images/"+cartasJugador.get(2).toString()));
             lCarta3.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("images/"+cartasJugador.get(3).toString()));
+            image = ImageIO.read(new File("src/images/"+cartasJugador.get(3).toString()));
             lCarta4.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("images/"+cartasJugador.get(4).toString()));
+            image = ImageIO.read(new File("src/images/"+cartasJugador.get(4).toString()));
             lCarta5.setIcon(new ImageIcon(image));
         }catch(IOException ex){
             JOptionPane.showMessageDialog(this, ex);;
@@ -278,11 +280,18 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         String saldo=String.valueOf(controlador.cargarSaldo());
         lTuSaldo.setText(saldo);
     }
-
-    private void mostrarSaldoJugador() {
-        Object part = lListaParticipantes.getSelectedValue();
-        if (part != null) {
-            lSaldoJugador.setText(controlador.)
+    
+    private void consultarSaldo(){        
+        Participacion part = (Participacion)lListaParticipantes.getSelectedValue();
+        if(part != null){
+            controlador.getSaldoJugador(part);
         }
+    }
+    
+
+    @Override
+    public void mostrarSaldoJugador(double saldoJugador) {
+        String saldo=String.valueOf(saldoJugador);       
+        lSaldoJugador.setText(saldo);
     }
 }
