@@ -5,7 +5,11 @@
  */
 package iu;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import modelo.Administrador;
+import modelo.Juego;
 
 /**
  *
@@ -13,12 +17,15 @@ import modelo.Administrador;
  */
 public class MonitorearJuegos extends javax.swing.JDialog {
 
+    private ArrayList<Juego> juegos;
+
     /**
      * Creates new form MonitorearJuegos
      */
-    public MonitorearJuegos(java.awt.Frame parent, boolean modal,Administrador admin) {
+    public MonitorearJuegos(java.awt.Frame parent, boolean modal, Administrador admin, ArrayList<Juego> juegos) {
         super(parent, modal);
         initComponents();
+        mostrarJuegos();
     }
 
     /**
@@ -53,6 +60,11 @@ public class MonitorearJuegos extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tPartidas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tPartidasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tPartidas);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -107,10 +119,13 @@ public class MonitorearJuegos extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tPartidasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tPartidasMouseClicked
+        mostrarDatosJuego(seleccionarJuego(tPartidas.getSelectedRow()));
+    }//GEN-LAST:event_tPartidasMouseClicked
+
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -120,4 +135,37 @@ public class MonitorearJuegos extends javax.swing.JDialog {
     private javax.swing.JTable tJugadores;
     private javax.swing.JTable tPartidas;
     // End of variables declaration//GEN-END:variables
+private void mostrarJuegos() {
+
+        DefaultTableModel tabla = new DefaultTableModel();
+        tabla.addColumn("Fecha de Inicio");
+        tabla.addColumn("Cantidad Jugadores");
+        tabla.addColumn("Total Apostado");
+        tabla.addColumn("Cantidad de Manos");
+
+        int fila = 0;
+        tabla.setNumRows(juegos.size());
+        SimpleDateFormat date = new SimpleDateFormat();
+
+        for (Juego j : juegos) {
+            tabla.setValueAt(j.getJugadores().size(), fila, 1);
+            tabla.setValueAt(j.getTotalApostado(), fila, 2);
+            tabla.setValueAt(j.getManos().size(), fila, 3);
+            fila++;
+        }
+        tPartidas.setModel(tabla);
+
+    }
+
+    private Juego seleccionarJuego(int pos) {
+        Juego elegido = null;
+        if (pos != -1) {
+            elegido = juegos.get(pos);
+        }
+        return elegido;
+    }
+
+    private void mostrarDatosJuego(Juego jue) {
+
+    }
 }

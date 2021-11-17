@@ -81,5 +81,13 @@ public class Juego {
         return luz;
     }
     
+    public int getTotalApostado(){
+        int apostado=0;
+        for(Mano m:this.getManos()){
+            apostado+=m.getPozo();
+        }
+        return apostado;
+    }
+    
     
 }
