@@ -25,7 +25,11 @@ public class LoginJugador extends Login{
     @Override
     public Object invocarLogin(String usuario, String pwd) {
         Participacion p=Sistema.getInstancia().loginJugador(usuario,pwd);
-        return p.getJugador();
+        if(p!=null){
+            return p.getJugador();
+        }else{
+            return p;
+        }
     }
 
     @Override

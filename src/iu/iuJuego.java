@@ -116,6 +116,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         bPasar.setBounds(30, 130, 100, 40);
 
         bIgualar.setText("Igualar");
+        bIgualar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bIgualarActionPerformed(evt);
+            }
+        });
         jPanel1.add(bIgualar);
         bIgualar.setBounds(30, 80, 100, 40);
 
@@ -139,13 +144,13 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
         jLabel3.setText("Pozo:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(190, 290, 50, 16);
+        jLabel3.setBounds(190, 290, 50, 20);
 
         jLabel4.setText("Apuesta Actual:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(390, 280, 90, 30);
         jPanel1.add(tApostar);
-        tApostar.setBounds(160, 40, 64, 22);
+        tApostar.setBounds(160, 40, 6, 26);
 
         lTuSaldo.setText("$");
         jPanel1.add(lTuSaldo);
@@ -184,12 +189,17 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     private void bApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bApostarActionPerformed
         double monto=Double.parseDouble(tApostar.getText());
         controlador.apostar(monto);
+        bIgualar.setEnabled(false);
     }//GEN-LAST:event_bApostarActionPerformed
 
     private void lListaParticipantesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lListaParticipantesValueChanged
         // TODO add your handling code here:
         consultarSaldo();
     }//GEN-LAST:event_lListaParticipantesValueChanged
+
+    private void bIgualarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIgualarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bIgualarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,10 +298,15 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         }
     }
     
-
+    @Override
+    public void notificarApuesta(){
+        lFaltantes.setText("<html>Se realizo una apuesta.<br/>Debes igualar o pasar.</html>");
+        bApostar.setEnabled(false);
+    }
     @Override
     public void mostrarSaldoJugador(double saldoJugador) {
         String saldo=String.valueOf(saldoJugador);       
         lSaldoJugador.setText(saldo);
     }
+    
 }
