@@ -38,6 +38,7 @@ public class LoginJugador extends Login{
             throw new JuegoException("Saldo insuficiente");
         }else{
             new iuJuego(null,false,part).setVisible(true);
+            Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
         }       
     }
 

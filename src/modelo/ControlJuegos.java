@@ -15,18 +15,9 @@ public class ControlJuegos {
 
     private ArrayList<Juego> juegos = new ArrayList();
     private ArrayList<Figura> figuras = new ArrayList();
-    private Mazo mazo;
 
     public ControlJuegos() {
         cargarFiguras();
-    }
-
-    public Mazo getMazo() {
-        return mazo;
-    }
-
-    public void setMazo(Mazo mazo) {
-        this.mazo = mazo;
     }
 
     
@@ -50,7 +41,7 @@ public class ControlJuegos {
 
     public Participacion iniciarJuego(Jugador jugador){
         int contador = 0;
-        ArrayList<Juego> juegos = this.juegos;
+        ArrayList<Juego> juegos = new ArrayList(this.juegos);
         Participacion part = new Participacion(jugador);
         for (Juego juego : this.juegos) {
             for (Participacion p : juego.getJugadores()) {
@@ -61,28 +52,25 @@ public class ControlJuegos {
         }
         if (this.juegos.size() == 0) {
             Juego j = new Juego();
-            j.setMazo(this.mazo);
             this.agregarJuego(j);
-            if (jugador.getSaldo() > j.getLuz()) {
-                j.agregarJugador(part);
-                Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
+            if (jugador.getSaldo() >= j.getLuz()) {
+                j.agregarJugador(part);                
             }
         } else {
             for (Juego j : juegos) {
                 if (!j.getIniciado()) {
-                    if (jugador.getSaldo() > j.getLuz()) {
+                    if (jugador.getSaldo() >= j.getLuz()) {
                         j.agregarJugador(part);
-                        Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
+                        
                     }
                 } else {
                     contador++;
                     if (contador == this.juegos.size()) {
                         Juego j2 = new Juego();
-                        j2.setMazo(this.mazo);
                         this.agregarJuego(j2);
-                        if (jugador.getSaldo() > j2.getLuz()) {
+                        if (jugador.getSaldo() >= j2.getLuz()) {
                             j2.agregarJugador(part);
-                            Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
+                            
                         }
                     }
                 }
@@ -116,7 +104,4 @@ public class ControlJuegos {
         return null;
     }
 
-    public void agregarMazo(Mazo mazo){
-        this.setMazo(mazo);
-    }
 }

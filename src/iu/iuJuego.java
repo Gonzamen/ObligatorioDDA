@@ -34,6 +34,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         super(parent, modal);
         initComponents();
         controlador = new ControladorJuego(this,participante);
+        cargarSaldo();
     }
 
     /**
@@ -56,8 +57,6 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         bIgualar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tSaldoPropio = new javax.swing.JTextField();
-        tSaldoJugador = new javax.swing.JTextField();
         lCarta5 = new javax.swing.JLabel();
         lCarta1 = new javax.swing.JLabel();
         lCarta2 = new javax.swing.JLabel();
@@ -65,10 +64,12 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         lCarta4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        tPozo = new javax.swing.JTextField();
-        tApuestaActual = new javax.swing.JTextField();
-        tSalaEspera = new javax.swing.JTextField();
         tApostar = new javax.swing.JTextField();
+        lTuSaldo = new javax.swing.JLabel();
+        lSaldoJugador = new javax.swing.JLabel();
+        lPozo = new javax.swing.JLabel();
+        lApuestaActual = new javax.swing.JLabel();
+        lFaltantes = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,36 +121,46 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         jLabel2.setText("Tu Saldo:");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(180, 110, 60, 30);
-        jPanel1.add(tSaldoPropio);
-        tSaldoPropio.setBounds(240, 110, 6, 26);
-        jPanel1.add(tSaldoJugador);
-        tSaldoJugador.setBounds(550, 110, 6, 26);
         jPanel1.add(lCarta5);
-        lCarta5.setBounds(730, 350, 130, 210);
+        lCarta5.setBounds(730, 390, 130, 210);
         jPanel1.add(lCarta1);
-        lCarta1.setBounds(40, 350, 130, 210);
+        lCarta1.setBounds(40, 390, 130, 210);
         jPanel1.add(lCarta2);
-        lCarta2.setBounds(210, 350, 130, 210);
+        lCarta2.setBounds(220, 390, 130, 210);
         jPanel1.add(lCarta3);
-        lCarta3.setBounds(380, 350, 130, 210);
+        lCarta3.setBounds(390, 390, 130, 210);
         jPanel1.add(lCarta4);
-        lCarta4.setBounds(550, 350, 130, 210);
+        lCarta4.setBounds(560, 390, 130, 210);
 
         jLabel3.setText("Pozo:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(220, 290, 40, 20);
+        jLabel3.setBounds(190, 290, 50, 16);
 
         jLabel4.setText("Apuesta Actual:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(390, 280, 90, 30);
-        jPanel1.add(tPozo);
-        tPozo.setBounds(260, 290, 6, 26);
-        jPanel1.add(tApuestaActual);
-        tApuestaActual.setBounds(490, 290, 6, 26);
-        jPanel1.add(tSalaEspera);
-        tSalaEspera.setBounds(680, 280, 180, 50);
         jPanel1.add(tApostar);
-        tApostar.setBounds(160, 40, 6, 26);
+        tApostar.setBounds(160, 40, 64, 22);
+
+        lTuSaldo.setText("$");
+        jPanel1.add(lTuSaldo);
+        lTuSaldo.setBounds(240, 110, 70, 30);
+
+        lSaldoJugador.setText("$");
+        jPanel1.add(lSaldoJugador);
+        lSaldoJugador.setBounds(550, 116, 70, 20);
+
+        lPozo.setText("$");
+        jPanel1.add(lPozo);
+        lPozo.setBounds(250, 290, 70, 20);
+
+        lApuestaActual.setText("$");
+        jPanel1.add(lApuestaActual);
+        lApuestaActual.setBounds(490, 286, 90, 20);
+
+        lFaltantes.setText(".");
+        jPanel1.add(lFaltantes);
+        lFaltantes.setBounds(680, 280, 180, 60);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,18 +198,18 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lApuestaActual;
     private javax.swing.JLabel lCarta1;
     private javax.swing.JLabel lCarta2;
     private javax.swing.JLabel lCarta3;
     private javax.swing.JLabel lCarta4;
     private javax.swing.JLabel lCarta5;
+    private javax.swing.JLabel lFaltantes;
     private javax.swing.JList lListaParticipantes;
+    private javax.swing.JLabel lPozo;
+    private javax.swing.JLabel lSaldoJugador;
+    private javax.swing.JLabel lTuSaldo;
     private javax.swing.JTextField tApostar;
-    private javax.swing.JTextField tApuestaActual;
-    private javax.swing.JTextField tPozo;
-    private javax.swing.JTextField tSalaEspera;
-    private javax.swing.JTextField tSaldoJugador;
-    private javax.swing.JTextField tSaldoPropio;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -209,8 +220,8 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     @Override
     public void mostrarFaltantes(int faltantes) {
         if(faltantes > 0){
-            tSalaEspera.setText("Esperando inicio de juego, faltan ingresar: "+ faltantes + " jugadores");
-        }else{
+            lFaltantes.setText("<html>Esperando inicio de juego.<br/>Faltan ingresar: "+ faltantes + " jugadores.</html>");
+        }else if(faltantes == 0){
             controlador.iniciarJuego();
         }
         
@@ -238,14 +249,23 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     @Override
     public void mostrarApuesta(double monto) {
         String montoAux= String.valueOf(monto);
-        tApuestaActual.setText(montoAux);
+        lApuestaActual.setText(montoAux);
     }
 
     @Override
     public void mostrarPozo(double monto) {
         String montoAux=String.valueOf(monto);
-        tPozo.setText(montoAux);
+        lPozo.setText(montoAux);
+    }
+
+    @Override
+    public void mostrarSaldo(double saldo) {
+        String montoAux=String.valueOf(saldo);
+        lTuSaldo.setText(montoAux);
     }
     
-    
+    private void cargarSaldo(){
+        String saldo=String.valueOf(controlador.cargarSaldo());
+        lTuSaldo.setText(saldo);
+    }
 }

@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import java.util.ArrayList;
 import modelo.Juego;
 import modelo.Mano;
 import modelo.Participacion;
@@ -28,9 +29,9 @@ public class ControladorJuego implements Observador {
         this.vista = vista;
         this.participante = participante;
         this.juego = participante.getJuego();
-        this.mano = fachada.getMano(participante, juego);
+        this.mano = juego.getManos().get(0);
         fachada.agregar(this);
-        //mano.agregar(this);
+        mano.agregar(this);
 
     }
 
@@ -43,11 +44,14 @@ public class ControladorJuego implements Observador {
         if (evento.equals(Mano.Eventos.actualizarPozo)) {
             actualizarPozo();
             actualizarApuesta();
+            actualizarSaldo();
         }
     }
 
     private void cargarParticipante() {
-        vista.agregarParticipante(juego.getJugadores());
+        ArrayList<Participacion> participantes = new ArrayList(juego.getJugadores());
+        participantes.remove(participante);
+        vista.agregarParticipante(participantes);
     }
 
     private void mostrarFaltantes() {
@@ -61,17 +65,15 @@ public class ControladorJuego implements Observador {
 
     public void iniciarJuego() {
         if (juego.getJugadoresMax() == juego.getJugadores().size()) {
-            juego.generarMano(juego.getLuz() * juego.getJugadoresMax());
+            mano.iniciarMano(juego);
             repartirCartas();
         }
     }
 
     public void apostar(double monto) {
         if (fachada.getMano(participante, juego).apostar(participante, monto)) {
-            participante.setNoApuesta(true);
-            participante.getJugador().setSaldo(monto);
-        }
-        vista.mostrarApuesta(monto);
+            vista.mostrarApuesta(monto);
+        }       
     }
 
     private void actualizarPozo() {
@@ -87,4 +89,13 @@ public class ControladorJuego implements Observador {
         }
         vista.mostrarApuesta(monto);
     }
+    
+    private void actualizarSaldo(){
+        vista.mostrarSaldo(participante.getSaldo());
+    }
+    
+    public double cargarSaldo(){
+        return participante.getSaldo();
+    }
+    
 }

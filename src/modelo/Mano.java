@@ -16,19 +16,35 @@ import observador.Observable;
 public class Mano extends Observable{
 
     public enum Eventos{actualizarPozo};
+    
     private double pozo;
     private Participacion ganador = null;
     private ArrayList<Participacion> participantes = new ArrayList();
     private Mazo mazo = new Mazo();
-    private Juego juego = new Juego();
+    private Juego juego;
     private boolean enJuego = false;
 
-    public Mano(double luz, ArrayList<Participacion> participantes,Mazo mazo) {
+    public Mano(double luz, ArrayList<Participacion> participantes) {
         this.pozo = this.pozo + luz;
         this.participantes = participantes;
-        this.mazo = mazo;
-        this.enJuego =true;
+        this.enJuego = true;
         cargarMano();
+    }
+
+    public Mano() {
+        
+    }
+    
+    public void iniciarMano(Juego jue){
+        this.juego = jue;
+        this.pozo = jue.getLuz() * participantes.size();
+        this.enJuego =true;
+        this.juego.setearIniciado();
+        cargarMano();
+    }
+    
+    public void agregarParticipante(Participacion p){
+        participantes.add(p);
     }
     
     public boolean getEnJuego(){
@@ -55,9 +71,6 @@ public class Mano extends Observable{
         return mazo;
     }
     
-    public void setMazo(Mazo mazo){
-        this.mazo = mazo;
-    }
 
     public ArrayList<Participacion> getParticipantes() {
         return participantes;
@@ -121,7 +134,7 @@ public class Mano extends Observable{
             this.pozo = 0;
         }
         this.enJuego = false;
-        juego.generarMano(this.pozo);
+        juego.nuevaMano(this.pozo);
         return ganador;
     }
     
