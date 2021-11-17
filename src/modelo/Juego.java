@@ -75,5 +75,18 @@ public class Juego extends Observable {
     public int getLuz() {
         return luz;
     }
+master
 
+
+    
+    public int getTotalApostado(){
+        int apostado=0;
+        for(Mano m:this.getManos()){
+            apostado+=m.getPozo();
+        }
+        return apostado;
+    }
+    
+    
+master
 }
