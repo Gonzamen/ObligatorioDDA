@@ -15,11 +15,21 @@ public class ControlJuegos {
 
     private ArrayList<Juego> juegos = new ArrayList();
     private ArrayList<Figura> figuras = new ArrayList();
+    private Mazo mazo;
 
     public ControlJuegos() {
         cargarFiguras();
     }
 
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+    public void setMazo(Mazo mazo) {
+        this.mazo = mazo;
+    }
+
+    
     public void agregarJuego(Juego juego) {
         juegos.add(juego);
     }
@@ -38,47 +48,47 @@ public class ControlJuegos {
         return figuras;
     }
 
-    public Juego iniciarJuego(Jugador jugador) {
+    public Participacion iniciarJuego(Jugador jugador){
         int contador = 0;
-        Juego resultado = null;
+        ArrayList<Juego> juegos = this.juegos;
+        Participacion part = new Participacion(jugador);
         for (Juego juego : this.juegos) {
             for (Participacion p : juego.getJugadores()) {
                 if (jugador.equals(p.getJugador())) {
-                    return resultado;
+                    return null;
                 }
             }
         }
         if (this.juegos.size() == 0) {
             Juego j = new Juego();
+            j.setMazo(this.mazo);
             this.agregarJuego(j);
             if (jugador.getSaldo() > j.getLuz()) {
-                j.agregarJugador(new Participacion(jugador));
+                j.agregarJugador(part);
                 Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
-                resultado = j;
             }
         } else {
-            for (Juego j : this.juegos) {
+            for (Juego j : juegos) {
                 if (!j.getIniciado()) {
                     if (jugador.getSaldo() > j.getLuz()) {
-                        j.agregarJugador(new Participacion(jugador));
+                        j.agregarJugador(part);
                         Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
-                        resultado = j;
                     }
                 } else {
                     contador++;
                     if (contador == this.juegos.size()) {
                         Juego j2 = new Juego();
+                        j2.setMazo(this.mazo);
                         this.agregarJuego(j2);
                         if (jugador.getSaldo() > j2.getLuz()) {
-                            j2.agregarJugador(new Participacion(jugador));
+                            j2.agregarJugador(part);
                             Sistema.getInstancia().avisar(Sistema.Eventos.agregaParticipante);
-                            resultado = j2;
                         }
                     }
                 }
             }
         }
-        return resultado;
+        return part;
     }
 
     public Participacion buscarJugador(Jugador jug, Juego jue) {
@@ -91,12 +101,12 @@ public class ControlJuegos {
         return part;
     }
 
-    public Mano getMano(Jugador jugador, Juego jue) {
+    public Mano getMano(Participacion jugador, Juego jue) {
         for (Juego j : juegos) {
             if (j.equals(jue)) {
                 for (Mano m : j.getManos()) {
                     for (Participacion p : m.getParticipantes()) {
-                        if (m.getGanador() == null && p.getJugador().equals(jugador)) {
+                        if (m.getEnJuego() == true && p.equals(jugador)) {
                             return m;
                         }
                     }
@@ -106,4 +116,7 @@ public class ControlJuegos {
         return null;
     }
 
+    public void agregarMazo(Mazo mazo){
+        this.setMazo(mazo);
+    }
 }

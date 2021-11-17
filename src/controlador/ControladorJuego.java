@@ -6,6 +6,7 @@
 package controlador;
 
 import modelo.Juego;
+import modelo.Mano;
 import modelo.Participacion;
 import modelo.Sistema;
 import observador.Observable;
@@ -16,25 +17,32 @@ import observador.Observador;
  * @author gonza
  */
 public class ControladorJuego implements Observador {
-    
+
     private VistaJuego vista;
     private Sistema fachada = Sistema.getInstancia();
     private Participacion participante;
     private Juego juego;
+    private Mano mano;
 
     public ControladorJuego(VistaJuego vista, Participacion participante) {
         this.vista = vista;
         this.participante = participante;
         this.juego = participante.getJuego();
+        this.mano = fachada.getMano(participante, juego);
         fachada.agregar(this);
+        //mano.agregar(this);
+
     }
-      
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        if(evento.equals(Sistema.Eventos.agregaParticipante)){ 
+        if (evento.equals(Sistema.Eventos.agregaParticipante)) {
             cargarParticipante();
             mostrarFaltantes();
+        }
+        if (evento.equals(Mano.Eventos.actualizarPozo)) {
+            actualizarPozo();
+            actualizarApuesta();
         }
     }
 
@@ -43,29 +51,39 @@ public class ControladorJuego implements Observador {
     }
 
     private void mostrarFaltantes() {
-        int faltantes = juego.getJugadoresMax() - juego.getJugadores().size();      
+        int faltantes = juego.getJugadoresMax() - juego.getJugadores().size();
         vista.mostrarFaltantes(faltantes);
     }
-    
-    private void repartirCartas(){
-        if(iniciarJuego()){
-            vista.cargarCartas(participante.getCartasJugador());
+
+    private void repartirCartas() {
+        vista.cargarCartas(participante.getCartasJugador());
+    }
+
+    public void iniciarJuego() {
+        if (juego.getJugadoresMax() == juego.getJugadores().size()) {
+            juego.generarMano(juego.getLuz() * juego.getJugadoresMax());
+            repartirCartas();
         }
     }
-    
-    private boolean iniciarJuego(){
-        if(juego.getJugadoresMax() == juego.getJugadores().size()){
-            juego.generarMano(juego.getLuz()*juego.getJugadoresMax());
-            return true;
-        }else{
-            return false;
-        }      
-    }
-    
-    public void apostar(double monto){
-        if(fachada.getMano(participante.getJugador(), juego).apostar(participante, monto)){
+
+    public void apostar(double monto) {
+        if (fachada.getMano(participante, juego).apostar(participante, monto)) {
             participante.setNoApuesta(true);
             participante.getJugador().setSaldo(monto);
+        }
+        vista.mostrarApuesta(monto);
+    }
+
+    private void actualizarPozo() {
+        vista.mostrarPozo(mano.getPozo());
+    }
+
+    private void actualizarApuesta() {
+        double monto = 0;
+        for(Participacion p : mano.getParticipantes()){
+            if(p.getNoApuesta()){
+                monto = p.getApuesta();
+            }
         }
         vista.mostrarApuesta(monto);
     }

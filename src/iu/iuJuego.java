@@ -208,7 +208,12 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
     @Override
     public void mostrarFaltantes(int faltantes) {
-        tSalaEspera.setText("Esperando inicio de juego, faltan ingresar: "+ faltantes + " jugadores");
+        if(faltantes > 0){
+            tSalaEspera.setText("Esperando inicio de juego, faltan ingresar: "+ faltantes + " jugadores");
+        }else{
+            controlador.iniciarJuego();
+        }
+        
     }
 
     @Override

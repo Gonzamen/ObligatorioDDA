@@ -16,8 +16,8 @@ import modelo.Sistema;
  */
 public class LoginAdmin extends Login{
     
-    public LoginAdmin(){
-        
+    public LoginAdmin(Frame parent, boolean modal){
+        super(parent, modal);
     }
 
     @Override
@@ -29,6 +29,11 @@ public class LoginAdmin extends Login{
     @Override
     public void proxCasoUso(Object obj) {
         new MonitorearJuegos(null,false,(Administrador)obj).setVisible(true);
+    }
+
+    @Override
+    public String getTitulo() {
+        return "Administrador, Inicie Sesión";
     }
     
 }

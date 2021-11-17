@@ -17,9 +17,18 @@ public class Juego {
     private int luz = 5;
     private int jugadoresMax = 5;
     private boolean iniciado = false;
+    private Mazo mazo;
 
     public Juego() {
         this.iniciado = true;
+    }
+
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+    public void setMazo(Mazo mazo) {
+        this.mazo = mazo;
     }
       
 
@@ -59,7 +68,7 @@ public class Juego {
                 retirarParticipante(p);
             }
         }
-        mano.add(new Mano(luz*jugadores.size()+pozoAnterior,this.jugadores));
+        mano.add(new Mano(luz*jugadores.size()+pozoAnterior,this.jugadores,this.mazo));
     }
     
     

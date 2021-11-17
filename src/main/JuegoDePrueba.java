@@ -6,6 +6,7 @@
 package main;
 
 import java.util.ArrayList;
+import modelo.Administrador;
 import modelo.Carta;
 import modelo.Juego;
 import modelo.Jugador;
@@ -22,10 +23,17 @@ import modelo.Sistema;
 public class JuegoDePrueba {
     public static void cargarDatos(){
         Sistema sistema = Sistema.getInstancia();
-        Jugador jug1 = new Jugador(150);
-        Jugador jug2 = new Jugador(150);
-        Jugador jug3 = new Jugador(150);
-        Jugador jug4 = new Jugador(150);
+        Administrador admin1 = new Administrador("a","a","aa");
+        Jugador jug1 = new Jugador("a","a","aa",150);
+        Jugador jug2 = new Jugador("b","b","bb",150);
+        Jugador jug3 = new Jugador("c","c","cc",150);
+        Jugador jug4 = new Jugador("d","d","dd",150);
+        Jugador jug5 = new Jugador("e","e","ee",150);
+        sistema.agregarJugador(jug1);
+        sistema.agregarJugador(jug2);
+        sistema.agregarJugador(jug3);
+        sistema.agregarJugador(jug4);
+        sistema.agregarJugador(jug5);
         Palo corazon = new Palo("corazón",4);
         Palo diamante = new Palo("diamante",3);
         Palo trebol = new Palo("trébol",2);
@@ -138,30 +146,6 @@ public class JuegoDePrueba {
         mazo.add(carta51);
         mazo.add(carta52);
         mazoentero.setCartas(mazo);
-        Participacion part1 = new Participacion(jug1);
-        Participacion part2 = new Participacion(jug2);
-        Participacion part3 = new Participacion(jug3);
-        Participacion part4 = new Participacion(jug4);
-        Juego juego1 = new Juego();
-        sistema.agregarJuego(juego1);
-        juego1.agregarJugador(part1);
-        juego1.agregarJugador(part2);
-        juego1.agregarJugador(part3);
-        juego1.agregarJugador(part4);
-        juego1.generarMano(0);
-        Mano mano1 = juego1.getManos().get(0);
-        mano1.setMazo(mazoentero);
-        mano1.barajarMazo();
-        mano1.repartirCartas();
-        part1.setFigura();
-        part2.setFigura();
-        part3.setFigura();
-        part4.setFigura();
-        mano1.apostar(part2, 20);
-        mano1.igualarApuesta(part4, 20);
-        mano1.igualarApuesta(part3, 20);
-        mano1.igualarApuesta(part1, 20);
-        
-        Participacion ganador = mano1.ganadorMano();
+        sistema.agregarMazo(mazoentero);
     }
 }

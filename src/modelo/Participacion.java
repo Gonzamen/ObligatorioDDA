@@ -41,8 +41,8 @@ public class Participacion implements Comparable<Participacion> {
         this.cartasJugador.add(carta);
     }
 
-    public Apuesta getApuesta() {
-        return apuesta;
+    public double getApuesta() {
+        return apuesta.getMonto();
     }
 
     public void setApuesta(Apuesta apuesta) {

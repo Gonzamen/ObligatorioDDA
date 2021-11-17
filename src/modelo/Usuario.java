@@ -14,6 +14,14 @@ public abstract class Usuario {
     protected String contraseña;
     protected String nombreCompleto;
 
+    public Usuario(String nomUsuario, String contraseña, String nombreCompleto) {
+        this.nomUsuario = nomUsuario;
+        this.contraseña = contraseña;
+        this.nombreCompleto = nombreCompleto;
+    }
+    
+    
+
     public abstract String getNomUsuario();
 
     public abstract String getContraseña();

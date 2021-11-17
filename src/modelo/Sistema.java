@@ -57,7 +57,7 @@ public class Sistema extends Observable{
         return controlUsuarios.getJugadores();
     }
 
-    public Juego iniciarJuego(Jugador jugador) {
+    public Participacion iniciarJuego(Jugador jugador){
         return controlJuegos.iniciarJuego(jugador);
     }
 
@@ -73,8 +73,12 @@ public class Sistema extends Observable{
         return controlUsuarios.loginAdmin(usuario, pwd);
     }
     
-    public Mano getMano(Jugador jugador, Juego jue){
+    public Mano getMano(Participacion jugador, Juego jue){
         return controlJuegos.getMano(jugador, jue);
+    }
+
+    public void agregarMazo(Mazo mazo) {
+        controlJuegos.agregarMazo(mazo);
     }
 
 

@@ -24,5 +24,6 @@ public interface VistaJuego {
     public void mostrarApuesta(double monto);
     
     public void mostrarPozo(double monto);
+
     
 }

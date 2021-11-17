@@ -7,23 +7,32 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import observador.Observable;
 
 /**
  *
  * @author gonza
  */
-public class Mano {
+public class Mano extends Observable{
 
+    public enum Eventos{actualizarPozo};
     private double pozo;
     private Participacion ganador = null;
     private ArrayList<Participacion> participantes = new ArrayList();
     private Mazo mazo = new Mazo();
     private Juego juego = new Juego();
+    private boolean enJuego = false;
 
-    public Mano(double luz, ArrayList<Participacion> participantes) {
+    public Mano(double luz, ArrayList<Participacion> participantes,Mazo mazo) {
         this.pozo = this.pozo + luz;
         this.participantes = participantes;
+        this.mazo = mazo;
+        this.enJuego =true;
         cargarMano();
+    }
+    
+    public boolean getEnJuego(){
+        return enJuego;
     }
 
     public double getPozo() {
@@ -82,6 +91,7 @@ public class Mano {
         participante.apostar(monto);
         participante.setNoApuesta(true);
         this.pozo += monto;
+        avisar(Eventos.actualizarPozo);
         return true;
     }
 
@@ -92,6 +102,7 @@ public class Mano {
             participante.apostar(monto);
             participante.setNoApuesta(true);
             this.pozo += monto;
+            avisar(Eventos.actualizarPozo);
         }
     }
 
@@ -109,6 +120,7 @@ public class Mano {
             ganador.getJugador().setSaldo(pozo);
             this.pozo = 0;
         }
+        this.enJuego = false;
         juego.generarMano(this.pozo);
         return ganador;
     }

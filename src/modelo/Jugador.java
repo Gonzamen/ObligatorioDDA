@@ -14,9 +14,7 @@ public class Jugador extends Usuario{
     private double saldo;
 
     public Jugador(String nomUsuario, String password, String nombreCompleto, double saldo) {
-        this.nomUsuario = nomUsuario;
-        this.contraseña = password;
-        this.nombreCompleto = nombreCompleto;
+        super(nomUsuario, password, nombreCompleto);
         this.saldo = saldo;
     }
 

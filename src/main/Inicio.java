@@ -5,6 +5,9 @@
  */
 package main;
 
+
+import iu.MenuPrincipal;
+
 /**
  *
  * @author gonza
@@ -17,6 +20,7 @@ public class Inicio {
     public static void main(String[] args) {
         // TODO code application logic here
         JuegoDePrueba.cargarDatos();
+        new MenuPrincipal().setVisible(true);
     }
     
 }
