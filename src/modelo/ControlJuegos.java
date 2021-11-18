@@ -89,19 +89,5 @@ public class ControlJuegos {
         return part;
     }
 
-    public Mano getMano(Participacion jugador, Juego jue) {
-        for (Juego j : juegos) {
-            if (j.equals(jue)) {
-                for (Mano m : j.getManos()) {
-                    for (Participacion p : m.getParticipantes()) {
-                        if (m.getEnJuego() == true && p.equals(jugador)) {
-                            return m;
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
 
 }

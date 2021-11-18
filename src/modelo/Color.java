@@ -19,7 +19,8 @@ public class Color extends Figura{
     }
     
     public Color(){
-        this.valor++;
+        this.ultimovalor++;
+        this.valor = ultimovalor;
     }
 
     public Palo getPalo() {
@@ -38,7 +39,7 @@ public class Color extends Figura{
                 contadorpalo++;              
             }
         }
-        if(contadorpalo==5){
+        if(contadorpalo==6){
             return new Color(palo);
         }else{
             return null;

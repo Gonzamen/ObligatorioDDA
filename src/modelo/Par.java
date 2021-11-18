@@ -22,7 +22,8 @@ public class Par extends Figura {
     }
 
     public Par() {
-        this.valor++;
+        this.ultimovalor++;
+        valor = ultimovalor;
     }
 
     public Carta getCarta() {

@@ -16,21 +16,20 @@ import observador.Observable;
 public class Mano extends Observable {
 
     public enum Eventos {
-        actualizarPozo, hayGanador, seApuesta, echarDeLaMano
+        actualizarPozo, nuevaMano, seApuesta, echarDeLaMano
     };
 
     private double pozo;
     private Participacion ganador = null;
+    private ArrayList<Participacion> losQuePasaron = new ArrayList();
     private ArrayList<Participacion> participantes = new ArrayList();
     private Mazo mazo = new Mazo();
     private Juego juego;
-    private boolean enJuego = false;
 
     public Mano(double luz, ArrayList<Participacion> participantes) {
         this.pozo = this.pozo + luz;
         avisar(Eventos.actualizarPozo);
         this.participantes = participantes;
-        this.enJuego = true;
         cargarMano();
     }
 
@@ -41,17 +40,12 @@ public class Mano extends Observable {
     public void iniciarMano(Juego jue) {
         this.juego = jue;
         this.pozo = jue.getLuz() * participantes.size();
-        this.enJuego = true;
         this.juego.setearIniciado();
         cargarMano();
     }
 
     public void agregarParticipante(Participacion p) {
         participantes.add(p);
-    }
-
-    public boolean getEnJuego() {
-        return enJuego;
     }
 
     public double getPozo() {
@@ -82,6 +76,11 @@ public class Mano extends Observable {
         mazo.barajar();
     }
 
+    public ArrayList<Participacion> getLosQuePasaron() {
+        return losQuePasaron;
+    }
+    
+
     public void setearFiguras() {
         for (Participacion p : participantes) {
             p.setFigura();
@@ -90,9 +89,9 @@ public class Mano extends Observable {
 
     public void repartirCartas() {
         int contador = 0;
-        for(Participacion p : this.participantes){           
-            for(int i = 0;i<5;i++){
-                if(p.getCartasJugador().size() < 5){
+        for (Participacion p : this.participantes) {
+            for (int i = 0; i < 5; i++) {
+                if (p.getCartasJugador().size() <= 5) {
                     p.setCartasJugador(mazo.getCartas().get(contador));
                     contador++;
                 }
@@ -116,7 +115,7 @@ public class Mano extends Observable {
 
     public void igualarApuesta(Participacion participante, double monto) {
         if (monto == 0) {
-            this.participantes.remove(participante);
+            this.losQuePasaron.add(participante);
             avisar(Eventos.echarDeLaMano);
         } else {
             participante.apostar(monto);
@@ -129,38 +128,36 @@ public class Mano extends Observable {
 
     public Participacion ganadorMano() {
         Participacion ganador = null;
-        if (!this.todosPasan()) {
+        if (participantes.size() >= 1) {
             Collections.sort(participantes);
             this.setGanador(participantes.get(participantes.size() - 1));
-            ganador = this.ganador;         
-            ganador.setPozoJugador(pozo);           
+            ganador = this.ganador;
+            ganador.setPozoJugador(pozo);
             this.pozo = 0;
             avisar(Eventos.actualizarPozo);
-        }
-        this.enJuego = false;
-        if(participantes.size() != 1){
-           juego.nuevaMano(this.pozo); 
-        }     
-        avisar(Eventos.hayGanador);
+            juego.nuevaMano(this.pozo);       
+        } else {
+            juego.nuevaMano(this.pozo);
+        }   
+        avisar(Eventos.nuevaMano);
         return ganador;
     }
 
-    public boolean todosPasan() {
-        ArrayList<Participacion> pAux = new ArrayList();
-        for (Participacion p : this.participantes) {
-            if (p.getNoApuesta() == false) {
-                pAux.add(p);
-            }
-        }
-        if (pAux.size() == this.participantes.size()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+//    public boolean todosPasan() {
+//        ArrayList<Participacion> pAux = new ArrayList();
+//        for (Participacion p : this.participantes) {
+//            if (p.getNoApuesta() == false) {
+//                pAux.add(p);
+//            }
+//        }
+//        if (pAux.size() == this.participantes.size()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
     public void cargarMano() {
-        for(Participacion p : this.participantes){
+        for (Participacion p : this.participantes) {
             p.vaciarApuesta();
             p.vaciarCartas();
         }

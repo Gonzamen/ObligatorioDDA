@@ -33,7 +33,7 @@ public class ControladorJuego implements Observador {
         fachada.agregar(this);
         juego.agregar(this);
         mano.agregar(this);
-
+        setearTitulo();
     }
 
     @Override
@@ -44,15 +44,16 @@ public class ControladorJuego implements Observador {
         }
         if (evento.equals(Mano.Eventos.actualizarPozo)) {
             actualizarPozo();
-
         }
         if (evento.equals(Mano.Eventos.seApuesta)) {
             actualizarApuesta();
             actualizarSaldo();
             desactivarApuesta();
         }
-        if (evento.equals(Mano.Eventos.hayGanador)) {
+        if (evento.equals(Mano.Eventos.nuevaMano)) {
             mostrarGanador();
+            retirarDelJuego();
+            finalizarJuego();
             actualizarSaldo();
             repartirCartas();
         }
@@ -61,6 +62,7 @@ public class ControladorJuego implements Observador {
         }
         if (evento.equals(Juego.Eventos.retirarJugador)) {
             cargarParticipante();
+            finalizarJuego();
         }
     }
 
@@ -135,22 +137,39 @@ public class ControladorJuego implements Observador {
                 contador++;
             }
         }
-        if (contador == mano.getParticipantes().size() || contador == 0) {
+        if (contador == mano.getParticipantes().size()) {
             return true;
         } else {
             return false;
         }
     }
+    
+    public boolean verificarPasada(){
+        ArrayList<Participacion> losQuePasaron = new ArrayList(mano.getLosQuePasaron());
+        ArrayList<Participacion> participantes = new ArrayList(mano.getParticipantes());
+        if(losQuePasaron.size() == participantes.size()){           
+            for(Participacion p : losQuePasaron ){
+                mano.getParticipantes().remove(p);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     public void manoTerminada() {
-        mano.ganadorMano();
+        mano.ganadorMano();     
     }
 
     private void mostrarGanador() {
-        vista.mostrarGanador(mano.getGanador());
-        formatearVista();
-        retirarDelJuego();
-        finalizarJuego();
+        if(mano.getGanador() != null){
+            vista.mostrarGanador(mano.getGanador());
+        }else{
+            vista.noHayGanador();
+        }
+        
+        formatearVista();      
     }
 
     private void formatearVista() {
@@ -172,5 +191,9 @@ public class ControladorJuego implements Observador {
             juego.retirarParticipante(participante);
             vista.cerrarVentana();
         }
+    }
+    
+    private void setearTitulo(){
+        vista.cargarTitulo(participante.getNombre());
     }
 }

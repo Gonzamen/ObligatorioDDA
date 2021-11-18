@@ -73,10 +73,5 @@ public class Sistema extends Observable{
         return controlUsuarios.loginAdmin(usuario, pwd);
     }
     
-    public Mano getMano(Participacion jugador, Juego jue){
-        return controlJuegos.getMano(jugador, jue);
-    }
-
-
     
 }

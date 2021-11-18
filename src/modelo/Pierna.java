@@ -19,7 +19,8 @@ public class Pierna extends Figura{
     }
     
     public Pierna(){
-        this.valor++;
+        this.ultimovalor++;
+        valor = ultimovalor;
     }
 
     public Carta getCarta() {

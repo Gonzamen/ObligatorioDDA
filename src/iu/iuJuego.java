@@ -338,11 +338,13 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
         controlador.apostar(monto);
         lFaltantes.setText("");
         bIgualar.setEnabled(false);
+        bPasar.setEnabled(false);
     }
 
     private void igualar() {
         double monto = Double.parseDouble(lApuestaActual.getText());
         controlador.igualarOPasar(monto);
+        bPasar.setEnabled(false);
         lFaltantes.setText("<html>Se ha igualado la apuesta.<html>");
         if (controlador.verificarMano()) {
             controlador.manoTerminada();
@@ -350,10 +352,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     }
 
     private void pasar() {
+        bApostar.setEnabled(false);
         bIgualar.setEnabled(false);
         lFaltantes.setText("<html>Se ha pasado la apuesta.<br/>Quedas fuera de la mano<html>");
         controlador.igualarOPasar(0);
-        if (controlador.verificarMano()) {
+        if (controlador.verificarPasada()) {
             controlador.manoTerminada();
         }
     }
@@ -361,6 +364,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     @Override
     public void mostrarGanador(Participacion ganador) {
         JOptionPane.showMessageDialog(this, "El ganador de la mano es: " + ganador.getNombre());
+
     }
 
     @Override
@@ -369,6 +373,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
         lFaltantes.setText("");
         bIgualar.setEnabled(true);
         bApostar.setEnabled(true);
+        bPasar.setEnabled(true);
     }
 
     @Override
@@ -392,6 +397,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     public void cerrarVentana() {
         JOptionPane.showMessageDialog(this, "Saldo insuficiente, seras retirado del juego");
         this.dispose();
+    }
+
+    @Override
+    public void cargarTitulo(String nombre) {
+        setTitle(nombre);
     }
 
 }
