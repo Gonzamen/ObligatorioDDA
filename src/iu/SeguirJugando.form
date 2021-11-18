@@ -68,11 +68,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="SI"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSIActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bNO">
       <Properties>
         <Property name="text" type="java.lang.String" value="NO"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bNOActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
