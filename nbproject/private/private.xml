@@ -3,6 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/Sistema.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/Figura.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/Mazo.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/iu/LoginJugador.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/iu/MonitorearJuegos.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/ControlJuegos.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/controlador/VistaJuego.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/Participacion.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/controlador/ControladorJuego.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/Mano.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/Juego.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/JuegoException.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/iu/iuJuego.java</file>
+            <file>file:/C:/Users/tomas/Documents/ORT/Desarrollo%20y%20Diseño%20de%20Apps/Obli2/ObligatorioDDA/src/modelo/Carta.java</file>
+=======
             <file>file:/D:/Programación/Diseño%20y%20Desarrollo/Obligatorio2/src/modelo/Juego.java</file>
             <file>file:/D:/Programación/Diseño%20y%20Desarrollo/Obligatorio2/src/iu/LoginJugador.java</file>
             <file>file:/D:/Programación/Diseño%20y%20Desarrollo/Obligatorio2/src/controlador/ControladorJuego.java</file>
@@ -35,6 +51,7 @@
             <file>file:/D:/Programación/Diseño%20y%20Desarrollo/Obligatorio2/src/modelo/JuegoException.java</file>
             <file>file:/D:/Programación/Diseño%20y%20Desarrollo/Obligatorio2/src/observador/Observable.java</file>
             <file>file:/D:/Programación/Diseño%20y%20Desarrollo/Obligatorio2/src/iu/SeguirJugando.java</file>
+>>>>>>> ecf7dbd320e2be85f704379ff2210e2051b4bb84
         </group>
     </open-files>
 </project-private>
