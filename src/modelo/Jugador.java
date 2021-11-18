@@ -12,6 +12,33 @@ package modelo;
 public class Jugador extends Usuario{
     
     private double saldo;
+    private double totalApostado;
+    private double totalGanado;
+    private double saldoInicio;
+
+    public double getTotalApostado() {
+        return totalApostado;
+    }
+
+    public void setTotalApostado(double totalApostado) {
+        this.totalApostado = this.totalApostado + totalApostado;
+    }
+
+    public double getTotalGanado() {
+        return totalGanado;
+    }
+
+    public void setTotalGanado(double totalGanado) {
+        this.totalGanado = totalGanado-this.totalApostado;
+    }
+
+    public double getSaldoInicio() {
+        return saldoInicio;
+    }
+
+    public void setSaldoInicio(double saldoInicio) {
+        this.saldoInicio = saldoInicio;
+    }
 
     public Jugador(String nomUsuario, String password, String nombreCompleto, double saldo) {
         super(nomUsuario, password, nombreCompleto);

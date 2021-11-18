@@ -134,6 +134,7 @@ public class Mano extends Observable {
             this.setGanador(participantes.get(participantes.size() - 1));
             ganador = this.ganador;
             ganador.setPozoJugador(pozo);
+            ganador.getJugador().setTotalGanado(pozo);
             this.pozo = 0;
             juego.nuevaMano(this.pozo);
         } else {
