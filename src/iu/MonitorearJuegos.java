@@ -166,6 +166,12 @@ private void mostrarJuegos() {
     }
 
     private void mostrarDatosJuego(Juego jue) {
+        
+        DefaultTableModel tabla = new DefaultTableModel();
+        tabla.addColumn("Fecha de Inicio");
+        tabla.addColumn("Cantidad Jugadores");
+        tabla.addColumn("Total Apostado");
+        tabla.addColumn("Cantidad de Manos");
 
     }
 }
