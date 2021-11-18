@@ -63,7 +63,7 @@ public class Juego extends Observable {
         jugador.setJuego(this);
         jugadores.add(jugador);
         this.mano.get(0).agregarParticipante(jugador);
-        avisar(Eventos.seActualiza);
+        Sistema.getInstancia().avisar(Sistema.Eventos.seActualiza);
     }
 
     public ArrayList<Mano> getManos() {
@@ -77,13 +77,15 @@ public class Juego extends Observable {
     public void nuevaMano(double pozoAnterior) {
         mano.add(new Mano((luz * jugadores.size()) + pozoAnterior, this.jugadores));
         avisar(Eventos.actualizarPozo);
+        Sistema.getInstancia().avisar(Sistema.Eventos.seActualiza);
     }
 
     public void retirarParticipante(Participacion jugador) {
         jugadores.remove(jugador);
         avisar(Eventos.retirarJugador);
+        avisar(Eventos.seActualiza);
         if(jugadores.size() == 1){
-            avisar(Eventos.juegoTerminado);
+            Sistema.getInstancia().avisar(Sistema.Eventos.seActualiza);
         }
     }
 

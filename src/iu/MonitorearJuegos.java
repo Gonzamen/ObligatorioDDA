@@ -168,8 +168,11 @@ public class MonitorearJuegos extends javax.swing.JDialog implements VistaMonito
         if (pos != -1) {
             elegido = controlador.getJuegos().get(pos);
         }
+        controlador.setearJuego(elegido);
         return elegido;
     }
+    
+    
 
     @Override
     public void mostrarDatosJuego(Juego jue) {

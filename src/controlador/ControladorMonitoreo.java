@@ -20,13 +20,12 @@ public class ControladorMonitoreo implements Observador{
     private VistaMonitoreo vista;
     private Sistema fachada=Sistema.getInstancia();
     private ArrayList<Juego> juegos = fachada.getJuegos();
-    private Juego juegoSeleccionado = new Juego();
-
+    private Juego juegoseleccionado;
+    
     public ControladorMonitoreo(VistaMonitoreo vista) {
         this.vista = vista;
         this.juegos=juegos;
         fachada.agregar(this);
-        juegoSeleccionado.agregar(this);
     }
     
     
@@ -36,8 +35,9 @@ public class ControladorMonitoreo implements Observador{
         if(evento.equals(Sistema.Eventos.agregaJuego)){
             refrescarTablaJuegos();
         }
-        if(evento.equals(Juego.Eventos.seActualiza)){
-            refrescarTablaDetalles();
+        if(evento.equals(Sistema.Eventos.seActualiza)){
+            refrescarTablaJuegos();
+            refrescarTablaDetalles();          
         }
     }
 
@@ -50,11 +50,11 @@ public class ControladorMonitoreo implements Observador{
     }
 
     private void refrescarTablaDetalles() {
-        vista.mostrarDatosJuego(this.juegoSeleccionado);
+        vista.mostrarDatosJuego(this.juegoseleccionado);
     }
     
-    public void setearJuegoSeleccionado(Juego juego){
-        this.juegoSeleccionado = juego;
+    public void setearJuego(Juego juego){
+        this.juegoseleccionado = juego;
     }
     
 }

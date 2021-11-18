@@ -102,7 +102,7 @@ public class Mano extends Observable {
             this.apuesta = monto;
             avisar(Eventos.actualizarPozo);
             avisar(Eventos.seApuesta);
-            avisar(Juego.Eventos.seActualiza);
+            Sistema.getInstancia().avisar(Sistema.Eventos.seActualiza);
             return true;
         } else {
             return false;
@@ -119,7 +119,7 @@ public class Mano extends Observable {
             this.pozo += monto;
             avisar(Eventos.actualizarPozo);
             avisar(Eventos.seApuesta);
-            avisar(Juego.Eventos.seActualiza);
+            Sistema.getInstancia().avisar(Sistema.Eventos.seActualiza);
         }
     }
 

@@ -34,6 +34,7 @@ public class ControlJuegos {
     
     public void agregarJuego(Juego juego) {
         juegos.add(juego);
+        Sistema.getInstancia().avisar(Sistema.Eventos.agregaJuego);
     }
 
     public ArrayList<Juego> getJuegos() {
@@ -63,8 +64,7 @@ public class ControlJuegos {
         }
         if (this.juegos.size() == 0) {
             Juego j = new Juego(luz,cantJugadores);
-            this.agregarJuego(j);
-            Sistema.getInstancia().avisar(Sistema.Eventos.agregaJuego);
+            this.agregarJuego(j);           
             if (jugador.getSaldo() >= j.getLuz()) {
                 j.agregarJugador(part);
                 part.getJugador().setSaldoInicio(part.getJugador().getSaldo());
@@ -81,7 +81,6 @@ public class ControlJuegos {
                     if (contador == this.juegos.size()) {
                         Juego j2 = new Juego(luz,cantJugadores);
                         this.agregarJuego(j2);
-                        Sistema.getInstancia().avisar(Sistema.Eventos.agregaJuego);
                         if (jugador.getSaldo() >= j2.getLuz()) {
                             j2.agregarJugador(part);
                             part.getJugador().setSaldoInicio(part.getJugador().getSaldo());
