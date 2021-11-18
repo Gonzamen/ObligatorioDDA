@@ -149,6 +149,7 @@ private void mostrarJuegos() {
         SimpleDateFormat date = new SimpleDateFormat();
 
         for (Juego j : juegos) {
+            tabla.setValueAt(j.getFecha(), fila, 0);
             tabla.setValueAt(j.getJugadores().size(), fila, 1);
             tabla.setValueAt(j.getTotalApostado(), fila, 2);
             tabla.setValueAt(j.getManos().size(), fila, 3);
@@ -178,10 +179,10 @@ private void mostrarJuegos() {
         tabla.setNumRows(jue.getJugadores().size());
         
         for(Participacion p: jue.getJugadores()){
-            tabla.setValueAt(p.getJugador().getNombreCompleto(), fila, 1);
+            tabla.setValueAt(p.getJugador().getNombreCompleto(), fila, 0);
             tabla.setValueAt(p.getJugador().getTotalApostado(), fila, 1);
-            tabla.setValueAt(p.getJugador().getSaldoInicio(), fila, 1);
-            tabla.setValueAt(p.getJugador().getTotalGanado(), fila, 1);
+            tabla.setValueAt(p.getJugador().getSaldoInicio(), fila, 2);
+            tabla.setValueAt(p.getJugador().getTotalGanado(), fila, 3);
             fila++;
         }
         tJugadores.setModel(tabla);
