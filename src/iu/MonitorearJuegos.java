@@ -175,10 +175,10 @@ public class MonitorearJuegos extends javax.swing.JDialog implements VistaMonito
     public void mostrarDatosJuego(Juego jue) {
         
         DefaultTableModel tabla = new DefaultTableModel();
-        tabla.addColumn("Fecha de Inicio");
-        tabla.addColumn("Cantidad Jugadores");
+        tabla.addColumn("Nombre Completo");
         tabla.addColumn("Total Apostado");
-        tabla.addColumn("Cantidad de Manos");
+        tabla.addColumn("Saldo Inicio");
+        tabla.addColumn("Total Ganado");
         
         int fila=0;
         tabla.setNumRows(jue.getJugadores().size());
