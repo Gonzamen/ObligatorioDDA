@@ -5,7 +5,9 @@
  */
 package modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import observador.Observable;
 
 /**
@@ -22,12 +24,20 @@ public class Juego extends Observable {
     private int luz;
     private int jugadoresMax;
     private boolean iniciado = false;
+    private Date fechaInicio;
 
     public Juego(int luz,int jugadoresMax) {
+        this.fechaInicio = new Date();
         this.luz = luz;
         this.jugadoresMax = jugadoresMax;
         generarMano();
     }
+    
+    private String getFecha(){
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        return sdf.format(this.fechaInicio);
+    }
+    
 
     public boolean getIniciado() {
         return iniciado;
