@@ -34,6 +34,7 @@ public class Participacion implements Comparable<Participacion> {
         this.participa = false;
     }
     
+    
     public void setSigue(){
         this.sigue = true;
     }
@@ -111,6 +112,13 @@ public class Participacion implements Comparable<Participacion> {
             Figura aux = f.definirme(cartasJugador);
             if (aux != null) {
                 this.figura = aux;
+                if(f.getValor()==1){
+                    this.figura.setNombre("Par");
+                }else if(f.getValor()==2){
+                    this.figura.setNombre("Pierna");
+                }else if(f.getValor()==3){
+                    this.figura.setNombre("Color");
+                }
                 return;
             }
         }

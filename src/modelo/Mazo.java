@@ -152,6 +152,7 @@ public class Mazo {
 
     public ArrayList<Carta> darCartas(int cant) {
         ArrayList<Carta> cartasResult = new ArrayList();
+        
         if (this.cartas.size() < cant) {
             return null;
         } else {
