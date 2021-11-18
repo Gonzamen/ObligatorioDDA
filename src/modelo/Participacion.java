@@ -15,13 +15,37 @@ public class Participacion implements Comparable<Participacion> {
 
     private Jugador jugador;
     private ArrayList<Carta> cartasJugador = new ArrayList();
-    private Apuesta apuesta;
+    private Apuesta apuesta = new Apuesta();
     private Figura figura = null;
     private boolean noApuesta = false;
+    private boolean pasaApuesta = false;
+    private boolean participa = false;
     private Juego juego;
 
     public Participacion(Jugador jugador) {
         this.jugador = jugador;
+    }
+    
+    public void setearBooleanos(){
+        this.noApuesta = false;
+        this.pasaApuesta = false;
+        this.participa = false;
+    }
+    
+    public void setpasaApuesta(){
+        this.pasaApuesta = true;
+    }
+    
+    public boolean getpasaApuesta(){
+        return this.pasaApuesta;
+    }
+    
+    public void setParticipa(){
+        this.participa = true;
+    }
+    
+    public boolean getParticipa(){
+        return this.participa;
     }
 
     public Jugador getJugador() {
@@ -46,10 +70,6 @@ public class Participacion implements Comparable<Participacion> {
 
     public double getApuesta() {
         return apuesta.getMonto();
-    }
-
-    public void setApuesta(Apuesta apuesta) {
-        this.apuesta = apuesta;
     }
 
     public Juego getJuego() {
@@ -167,10 +187,6 @@ public class Participacion implements Comparable<Participacion> {
     @Override
     public String toString() {
         return jugador.getNomUsuario();
-    }
-
-    public void vaciarApuesta() {
-        this.apuesta = new Apuesta();
     }
 
 }

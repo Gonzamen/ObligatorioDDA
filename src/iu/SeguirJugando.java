@@ -38,8 +38,18 @@ public class SeguirJugando extends javax.swing.JDialog {
         jLabel1.setText("¿Seguir Jugando?");
 
         bSI.setText("SI");
+        bSI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSIActionPerformed(evt);
+            }
+        });
 
         bNO.setText("NO");
+        bNO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bNOActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,6 +82,16 @@ public class SeguirJugando extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSIActionPerformed
+        // TODO add your handling code here:
+        seguir();
+    }//GEN-LAST:event_bSIActionPerformed
+
+    private void bNOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNOActionPerformed
+        // TODO add your handling code here:
+        quitarlo();
+    }//GEN-LAST:event_bNOActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -82,4 +102,12 @@ public class SeguirJugando extends javax.swing.JDialog {
     private javax.swing.JButton bSI;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    private void seguir() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void quitarlo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

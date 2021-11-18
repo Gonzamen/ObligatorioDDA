@@ -11,6 +11,7 @@ package modelo;
  */
 public class Apuesta {
     private double monto;
+    
 
     public double getMonto() {
         return monto;

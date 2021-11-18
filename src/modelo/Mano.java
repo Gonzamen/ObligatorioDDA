@@ -16,10 +16,11 @@ import observador.Observable;
 public class Mano extends Observable {
 
     public enum Eventos {
-        actualizarPozo, nuevaMano, seApuesta, echarDeLaMano
+        actualizarPozo, finalizaMano, seApuesta
     };
 
     private double pozo;
+    private double apuesta;
     private Participacion ganador = null;
     private ArrayList<Participacion> losQuePasaron = new ArrayList();
     private ArrayList<Participacion> participantes = new ArrayList();
@@ -34,7 +35,6 @@ public class Mano extends Observable {
     }
 
     public Mano() {
-
     }
 
     public void iniciarMano(Juego jue) {
@@ -64,6 +64,11 @@ public class Mano extends Observable {
         this.ganador = ganador;
     }
 
+    public double getApuesta() {
+        return apuesta;
+    }
+   
+
     public Mazo getMazo() {
         return mazo;
     }
@@ -79,7 +84,6 @@ public class Mano extends Observable {
     public ArrayList<Participacion> getLosQuePasaron() {
         return losQuePasaron;
     }
-    
 
     public void setearFiguras() {
         for (Participacion p : participantes) {
@@ -94,23 +98,24 @@ public class Mano extends Observable {
     }
 
     public boolean apostar(Participacion participante, double monto) {
-        for (Participacion p : this.participantes) {
-            if (p.getSaldoJugador() < monto) {
-                return false;
-            }
+        if (participante.getSaldoJugador() >= monto) {
+            participante.apostar(monto);
+            participante.setNoApuesta(true);
+            participante.setParticipa();
+            this.pozo += monto;
+            this.apuesta = monto;
+            avisar(Eventos.actualizarPozo);
+            avisar(Eventos.seApuesta);
+            return true;
+        } else {
+            return false;
         }
-        participante.apostar(monto);
-        participante.setNoApuesta(true);
-        this.pozo += monto;
-        avisar(Eventos.actualizarPozo);
-        avisar(Eventos.seApuesta);
-        return true;
     }
 
     public void igualarApuesta(Participacion participante, double monto) {
+        participante.setParticipa();
         if (monto == 0) {
-            this.losQuePasaron.add(participante);
-            avisar(Eventos.echarDeLaMano);
+            participante.setpasaApuesta();
         } else {
             participante.apostar(monto);
             participante.setNoApuesta(true);
@@ -122,6 +127,12 @@ public class Mano extends Observable {
 
     public Participacion ganadorMano() {
         Participacion ganador = null;
+        ArrayList<Participacion> todos = new ArrayList(this.participantes);
+        for (Participacion p : todos) {
+            if (p.getpasaApuesta() == true) {
+                this.participantes.remove(p);
+            }
+        }
         if (participantes.size() >= 1) {
             Collections.sort(participantes);
             this.setGanador(participantes.get(participantes.size() - 1));
@@ -129,11 +140,12 @@ public class Mano extends Observable {
             ganador.setPozoJugador(pozo);
             this.pozo = 0;
             avisar(Eventos.actualizarPozo);
-            juego.nuevaMano(this.pozo);       
-        } else {
             juego.nuevaMano(this.pozo);
-        }   
-        avisar(Eventos.nuevaMano);
+        } else {
+            this.ganador = null;
+            juego.nuevaMano(this.pozo);
+        }
+        avisar(Eventos.finalizaMano);
         return ganador;
     }
 
@@ -150,13 +162,15 @@ public class Mano extends Observable {
 //            return false;
 //        }
 //    }
-    public void cargarMano() {
+    private void cargarMano() {
         for (Participacion p : this.participantes) {
-            p.vaciarApuesta();
             p.vaciarCartas();
+            p.setearBooleanos();   
         }
+        this.ganador = null;
         this.barajarMazo();
         this.repartirCartas();
         this.setearFiguras();
+        
     }
 }
