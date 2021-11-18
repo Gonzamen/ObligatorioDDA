@@ -341,12 +341,15 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
         lFaltantes.setText("");
         bIgualar.setEnabled(false);
         bPasar.setEnabled(false);
+        bRetirarse.setEnabled(false);
     }
 
     private void igualar() {
         double monto = Double.parseDouble(lApuestaActual.getText());
         controlador.igualarOPasar(monto);
         bPasar.setEnabled(false);
+        bIgualar.setEnabled(false);
+        bRetirarse.setEnabled(false);
         lFaltantes.setText("<html>Se ha igualado la apuesta.<html>");
         if (controlador.todosParticipan()) {
             controlador.manoTerminada();

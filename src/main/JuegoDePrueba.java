@@ -26,17 +26,21 @@ public class JuegoDePrueba {
         sistema.setCantJugadores(3);
         sistema.setLuz(5);
         Administrador admin1 = new Administrador("a","a","aa");
+        Administrador admin2= new Administrador("b","b","bb");
         sistema.agregarAdministrador(admin1);
+        sistema.agregarAdministrador(admin2);
         Jugador jug1 = new Jugador("a","a","aa",150);
         Jugador jug2 = new Jugador("b","b","bb",150);
         Jugador jug3 = new Jugador("c","c","cc",150);
         Jugador jug4 = new Jugador("d","d","dd",150);
         Jugador jug5 = new Jugador("e","e","ee",150);
+        Jugador jug6 = new Jugador("f","f","ff",150);
         sistema.agregarJugador(jug1);
         sistema.agregarJugador(jug2);
         sistema.agregarJugador(jug3);
         sistema.agregarJugador(jug4);
         sistema.agregarJugador(jug5);
+        sistema.agregarJugador(jug6);
         
     }
 }
