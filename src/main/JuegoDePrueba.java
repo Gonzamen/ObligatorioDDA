@@ -26,6 +26,7 @@ public class JuegoDePrueba {
         sistema.setCantJugadores(3);
         sistema.setLuz(5);
         Administrador admin1 = new Administrador("a","a","aa");
+        sistema.agregarAdministrador(admin1);
         Jugador jug1 = new Jugador("a","a","aa",150);
         Jugador jug2 = new Jugador("b","b","bb",150);
         Jugador jug3 = new Jugador("c","c","cc",150);

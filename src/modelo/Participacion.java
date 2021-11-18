@@ -120,6 +120,7 @@ public class Participacion implements Comparable<Participacion> {
         apuesta.setMonto(monto);
         this.participa = true;
         setSaldoJugador(monto);
+        
     }
 
     public double getSaldoJugador() {

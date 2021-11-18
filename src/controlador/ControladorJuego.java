@@ -64,6 +64,7 @@ public class ControladorJuego implements Observador {
         }
         if (evento.equals(Juego.Eventos.retirarJugador)) {
             cargarParticipante();
+            todosParticipan();
         }
         if (evento.equals(Juego.Eventos.juegoTerminado)) {
             cerrarTodo();

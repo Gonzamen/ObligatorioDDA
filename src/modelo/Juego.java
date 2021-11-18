@@ -17,7 +17,7 @@ import observador.Observable;
 public class Juego extends Observable {
 
     public enum Eventos {
-        retirarJugador, actualizarPozo, juegoTerminado};
+        retirarJugador, actualizarPozo, juegoTerminado, seActualiza};
 
     private ArrayList<Participacion> jugadores = new ArrayList();
     private ArrayList<Mano> mano = new ArrayList();
@@ -33,7 +33,11 @@ public class Juego extends Observable {
         generarMano();
     }
     
-    private String getFecha(){
+    public Juego(){
+        
+    }
+    
+    public String getFecha(){
         SimpleDateFormat sdf = new SimpleDateFormat();
         return sdf.format(this.fechaInicio);
     }
@@ -59,6 +63,7 @@ public class Juego extends Observable {
         jugador.setJuego(this);
         jugadores.add(jugador);
         this.mano.get(0).agregarParticipante(jugador);
+        avisar(Eventos.seActualiza);
     }
 
     public ArrayList<Mano> getManos() {

@@ -19,7 +19,7 @@ public class Sistema extends Observable{
     
     private static Sistema instancia = new Sistema();
     
-    public enum Eventos{agregaParticipante};
+    public enum Eventos{agregaParticipante, agregaJuego};
 
     public static Sistema getInstancia() {
         return instancia;

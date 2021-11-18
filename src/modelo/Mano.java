@@ -102,6 +102,7 @@ public class Mano extends Observable {
             this.apuesta = monto;
             avisar(Eventos.actualizarPozo);
             avisar(Eventos.seApuesta);
+            avisar(Juego.Eventos.seActualiza);
             return true;
         } else {
             return false;
@@ -118,6 +119,7 @@ public class Mano extends Observable {
             this.pozo += monto;
             avisar(Eventos.actualizarPozo);
             avisar(Eventos.seApuesta);
+            avisar(Juego.Eventos.seActualiza);
         }
     }
 
@@ -131,6 +133,9 @@ public class Mano extends Observable {
         }
         if (participantes.size() >= 1) {
             Collections.sort(participantes);
+            for(int i = 0; i <participantes.size();i++){
+                participantes.get(i).getJugador().setTotalGanado(0);
+            }
             this.setGanador(participantes.get(participantes.size() - 1));
             ganador = this.ganador;
             ganador.setPozoJugador(pozo);

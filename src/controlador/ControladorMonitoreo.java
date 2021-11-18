@@ -19,18 +19,42 @@ public class ControladorMonitoreo implements Observador{
     
     private VistaMonitoreo vista;
     private Sistema fachada=Sistema.getInstancia();
-    private ArrayList<Juego> juegos= new ArrayList();
+    private ArrayList<Juego> juegos = fachada.getJuegos();
+    private Juego juegoSeleccionado = new Juego();
 
-    public ControladorMonitoreo(VistaMonitoreo vista, ArrayList<Juego> juegos) {
+    public ControladorMonitoreo(VistaMonitoreo vista) {
         this.vista = vista;
         this.juegos=juegos;
+        fachada.agregar(this);
+        juegoSeleccionado.agregar(this);
     }
     
     
 
     @Override
     public void actualizar(Object evento, Observable origen) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(evento.equals(Sistema.Eventos.agregaJuego)){
+            refrescarTablaJuegos();
+        }
+        if(evento.equals(Juego.Eventos.seActualiza)){
+            refrescarTablaDetalles();
+        }
+    }
+
+    private void refrescarTablaJuegos() {
+        vista.mostrarJuegos(this.juegos);
+    }
+    
+    public ArrayList<Juego> getJuegos(){
+        return this.juegos;
+    }
+
+    private void refrescarTablaDetalles() {
+        vista.mostrarDatosJuego(this.juegoSeleccionado);
+    }
+    
+    public void setearJuegoSeleccionado(Juego juego){
+        this.juegoSeleccionado = juego;
     }
     
 }

@@ -39,7 +39,7 @@ public class Color extends Figura{
                 contadorpalo++;              
             }
         }
-        if(contadorpalo==6){
+        if(contadorpalo==5){
             return new Color(palo);
         }else{
             return null;

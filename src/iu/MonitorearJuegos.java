@@ -5,6 +5,8 @@
  */
 package iu;
 
+import controlador.ControladorMonitoreo;
+import controlador.VistaMonitoreo;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -16,17 +18,17 @@ import modelo.Participacion;
  *
  * @author gonza
  */
-public class MonitorearJuegos extends javax.swing.JDialog {
+public class MonitorearJuegos extends javax.swing.JDialog implements VistaMonitoreo {
 
-    private ArrayList<Juego> juegos;
-
+    private ControladorMonitoreo controlador;
     /**
      * Creates new form MonitorearJuegos
      */
     public MonitorearJuegos(java.awt.Frame parent, boolean modal, Administrador admin) {
         super(parent, modal);
         initComponents();
-        mostrarJuegos();
+        controlador = new ControladorMonitoreo(this);
+        mostrarJuegos(controlador.getJuegos());
     }
 
     /**
@@ -136,7 +138,9 @@ public class MonitorearJuegos extends javax.swing.JDialog {
     private javax.swing.JTable tJugadores;
     private javax.swing.JTable tPartidas;
     // End of variables declaration//GEN-END:variables
-private void mostrarJuegos() {
+    
+    @Override
+    public void mostrarJuegos(ArrayList<Juego> juegos) {
 
         DefaultTableModel tabla = new DefaultTableModel();
         tabla.addColumn("Fecha de Inicio");
@@ -162,12 +166,13 @@ private void mostrarJuegos() {
     private Juego seleccionarJuego(int pos) {
         Juego elegido = null;
         if (pos != -1) {
-            elegido = juegos.get(pos);
+            elegido = controlador.getJuegos().get(pos);
         }
         return elegido;
     }
 
-    private void mostrarDatosJuego(Juego jue) {
+    @Override
+    public void mostrarDatosJuego(Juego jue) {
         
         DefaultTableModel tabla = new DefaultTableModel();
         tabla.addColumn("Fecha de Inicio");

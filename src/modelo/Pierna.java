@@ -38,7 +38,7 @@ public class Pierna extends Figura{
             for(int j = i+1;j<cartas.size();j++){
                 if (cartas.get(i).getNumero() == cartas.get(j).getNumero()) {                    
                     contadornum++;
-                    if(contadornum==4){
+                    if(contadornum==3){
                         carta = cartas.get(i);
                         p = new Pierna(carta);
                     }

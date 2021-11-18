@@ -5,10 +5,17 @@
  */
 package controlador;
 
+import java.util.ArrayList;
+import modelo.Juego;
+
 /**
  *
  * @author gonza
  */
 public interface VistaMonitoreo {
+
+    public void mostrarJuegos(ArrayList<Juego> juegos);
+
+    public void mostrarDatosJuego(Juego juegoSeleccionado);
     
 }

@@ -41,9 +41,9 @@ public class ControlJuegos {
     }
 
     public void cargarFiguras() {
-        figuras.add(new Color());
-        figuras.add(new Pierna());
         figuras.add(new Par());
+        figuras.add(new Pierna());
+        figuras.add(new Color());
     }
 
     public ArrayList<Figura> getFiguras() {
@@ -56,7 +56,7 @@ public class ControlJuegos {
         Participacion part = new Participacion(jugador);
         for (Juego juego : this.juegos) {
             for (Participacion p : juego.getJugadores()) {
-                if (jugador.equals(p.getJugador())) {
+                if (jugador.equals(p.getJugador()) && juego.getIniciado() == false) {
                     return null;
                 }
             }
@@ -64,6 +64,7 @@ public class ControlJuegos {
         if (this.juegos.size() == 0) {
             Juego j = new Juego(luz,cantJugadores);
             this.agregarJuego(j);
+            Sistema.getInstancia().avisar(Sistema.Eventos.agregaJuego);
             if (jugador.getSaldo() >= j.getLuz()) {
                 j.agregarJugador(part);
                 part.getJugador().setSaldoInicio(part.getJugador().getSaldo());
@@ -80,6 +81,7 @@ public class ControlJuegos {
                     if (contador == this.juegos.size()) {
                         Juego j2 = new Juego(luz,cantJugadores);
                         this.agregarJuego(j2);
+                        Sistema.getInstancia().avisar(Sistema.Eventos.agregaJuego);
                         if (jugador.getSaldo() >= j2.getLuz()) {
                             j2.agregarJugador(part);
                             part.getJugador().setSaldoInicio(part.getJugador().getSaldo());
