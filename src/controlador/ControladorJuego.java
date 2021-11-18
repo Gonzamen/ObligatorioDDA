@@ -101,6 +101,7 @@ public class ControladorJuego implements Observador {
     }
 
     private void actualizarApuesta() {
+        
         double monto = 0;
         for (Participacion p : mano.getParticipantes()) {
             if (p.getNoApuesta()) {
