@@ -110,6 +110,7 @@ public class Participacion implements Comparable<Participacion> {
 
     public void setSaldoJugador(double saldo) {
         this.jugador.setSaldo(getSaldoJugador() - saldo);
+        this.jugador.setTotalApostado(saldo);
     }
     
     public void setPozoJugador(double pozo){

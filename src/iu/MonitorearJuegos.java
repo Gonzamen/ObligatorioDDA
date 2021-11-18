@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import modelo.Administrador;
 import modelo.Juego;
+import modelo.Participacion;
 
 /**
  *
@@ -172,6 +173,18 @@ private void mostrarJuegos() {
         tabla.addColumn("Cantidad Jugadores");
         tabla.addColumn("Total Apostado");
         tabla.addColumn("Cantidad de Manos");
+        
+        int fila=0;
+        tabla.setNumRows(jue.getJugadores().size());
+        
+        for(Participacion p: jue.getJugadores()){
+            tabla.setValueAt(p.getJugador().getNombreCompleto(), fila, 1);
+            tabla.setValueAt(p.getJugador().getTotalApostado(), fila, 1);
+            tabla.setValueAt(p.getJugador().getSaldoInicio(), fila, 1);
+            tabla.setValueAt(p.getJugador().getTotalGanado(), fila, 1);
+            fila++;
+        }
+        tJugadores.setModel(tabla);
 
     }
 }

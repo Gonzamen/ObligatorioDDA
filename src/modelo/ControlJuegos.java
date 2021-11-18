@@ -54,14 +54,15 @@ public class ControlJuegos {
             Juego j = new Juego();
             this.agregarJuego(j);
             if (jugador.getSaldo() >= j.getLuz()) {
-                j.agregarJugador(part);                
+                j.agregarJugador(part);
+                part.getJugador().setSaldoInicio(part.getJugador().getSaldo());
             }
         } else {
             for (Juego j : juegos) {
                 if (!j.getIniciado()) {
                     if (jugador.getSaldo() >= j.getLuz()) {
                         j.agregarJugador(part);
-                        
+                        part.getJugador().setSaldoInicio(part.getJugador().getSaldo());
                     }
                 } else {
                     contador++;
@@ -70,7 +71,7 @@ public class ControlJuegos {
                         this.agregarJuego(j2);
                         if (jugador.getSaldo() >= j2.getLuz()) {
                             j2.agregarJugador(part);
-                            
+                            part.getJugador().setSaldoInicio(part.getJugador().getSaldo());
                         }
                     }
                 }
