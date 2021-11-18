@@ -30,5 +30,15 @@ public interface VistaJuego {
     public void mostrarSaldoJugador(double saldoJugador);
     
     public void notificarApuesta();
+
+    public void mostrarGanador(Participacion ganador);
+
+    public void formatear();
+
+    public void noHayGanador();
+
+    public void juegoFinalizado();
+
+    public void cerrarVentana();
   
 }

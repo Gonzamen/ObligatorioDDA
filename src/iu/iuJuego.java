@@ -23,17 +23,17 @@ import sun.util.logging.PlatformLogger;
  *
  * @author gonza
  */
-public class iuJuego extends javax.swing.JDialog implements VistaJuego{
+public class iuJuego extends javax.swing.JDialog implements VistaJuego {
 
     /**
      * Creates new form Juego
      */
     private ControladorJuego controlador;
-    
+
     public iuJuego(java.awt.Frame parent, boolean modal, Participacion participante) {
         super(parent, modal);
         initComponents();
-        controlador = new ControladorJuego(this,participante);
+        controlador = new ControladorJuego(this, participante);
         cargarSaldo();
     }
 
@@ -99,6 +99,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         jScrollPane2.setBounds(680, 20, 180, 230);
 
         bRetirarse.setText("Retirarse");
+        bRetirarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRetirarseActionPerformed(evt);
+            }
+        });
         jPanel1.add(bRetirarse);
         bRetirarse.setBounds(30, 180, 100, 40);
 
@@ -112,6 +117,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
         bApostar.setBounds(30, 30, 100, 40);
 
         bPasar.setText("Pasar");
+        bPasar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPasarActionPerformed(evt);
+            }
+        });
         jPanel1.add(bPasar);
         bPasar.setBounds(30, 130, 100, 40);
 
@@ -144,13 +154,13 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
         jLabel3.setText("Pozo:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(190, 290, 50, 20);
+        jLabel3.setBounds(190, 290, 50, 16);
 
         jLabel4.setText("Apuesta Actual:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(390, 280, 90, 30);
         jPanel1.add(tApostar);
-        tApostar.setBounds(160, 40, 6, 26);
+        tApostar.setBounds(160, 40, 100, 22);
 
         lTuSaldo.setText("$");
         jPanel1.add(lTuSaldo);
@@ -187,9 +197,8 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
     }// </editor-fold>//GEN-END:initComponents
 
     private void bApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bApostarActionPerformed
-        double monto=Double.parseDouble(tApostar.getText());
-        controlador.apostar(monto);
-        bIgualar.setEnabled(false);
+        apostar();
+
     }//GEN-LAST:event_bApostarActionPerformed
 
     private void lListaParticipantesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lListaParticipantesValueChanged
@@ -199,7 +208,18 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
     private void bIgualarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bIgualarActionPerformed
         // TODO add your handling code here:
+        igualar();
     }//GEN-LAST:event_bIgualarActionPerformed
+
+    private void bPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPasarActionPerformed
+        // TODO add your handling code here:
+        pasar();
+    }//GEN-LAST:event_bPasarActionPerformed
+
+    private void bRetirarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRetirarseActionPerformed
+        // TODO add your handling code here:
+        retirar();
+    }//GEN-LAST:event_bRetirarseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,74 +259,139 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego{
 
     @Override
     public void mostrarFaltantes(int faltantes) {
-        if(faltantes > 0){
-            lFaltantes.setText("<html>Esperando inicio de juego.<br/>Faltan ingresar: "+ faltantes + " jugadores.</html>");
-        }else if(faltantes == 0){
+        if (faltantes > 0) {
+            lFaltantes.setText("<html>Esperando inicio de juego.<br/>Faltan ingresar: " + faltantes + " jugadores.</html>");
+        } else if (faltantes == 0) {
             controlador.iniciarJuego();
             lFaltantes.setText("");
         }
-        
+
     }
 
     @Override
     public void cargarCartas(ArrayList<Carta> cartasJugador) {
         Image image;
-        
-        try{
-            image = ImageIO.read(new File("src/images/"+cartasJugador.get(0).toString()));
+
+        try {
+            image = ImageIO.read(new File("src/images/" + cartasJugador.get(0).toString()));
             lCarta1.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("src/images/"+cartasJugador.get(1).toString()));
+            image = ImageIO.read(new File("src/images/" + cartasJugador.get(1).toString()));
             lCarta2.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("src/images/"+cartasJugador.get(2).toString()));
+            image = ImageIO.read(new File("src/images/" + cartasJugador.get(2).toString()));
             lCarta3.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("src/images/"+cartasJugador.get(3).toString()));
+            image = ImageIO.read(new File("src/images/" + cartasJugador.get(3).toString()));
             lCarta4.setIcon(new ImageIcon(image));
-            image = ImageIO.read(new File("src/images/"+cartasJugador.get(4).toString()));
+            image = ImageIO.read(new File("src/images/" + cartasJugador.get(4).toString()));
             lCarta5.setIcon(new ImageIcon(image));
-        }catch(IOException ex){
-            JOptionPane.showMessageDialog(this, ex);;
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex);
         }
     }
 
     @Override
     public void mostrarApuesta(double monto) {
-        String montoAux= String.valueOf(monto);
+        String montoAux = String.valueOf(monto);
         lApuestaActual.setText(montoAux);
     }
 
     @Override
     public void mostrarPozo(double monto) {
-        String montoAux=String.valueOf(monto);
+        String montoAux = String.valueOf(monto);
         lPozo.setText(montoAux);
     }
 
     @Override
     public void mostrarSaldo(double saldo) {
-        String montoAux=String.valueOf(saldo);
+        String montoAux = String.valueOf(saldo);
         lTuSaldo.setText(montoAux);
     }
-    
-    private void cargarSaldo(){
-        String saldo=String.valueOf(controlador.cargarSaldo());
+
+    private void cargarSaldo() {
+        String saldo = String.valueOf(controlador.cargarSaldo());
         lTuSaldo.setText(saldo);
     }
-    
-    private void consultarSaldo(){        
-        Participacion part = (Participacion)lListaParticipantes.getSelectedValue();
-        if(part != null){
+
+    private void consultarSaldo() {
+        Participacion part = (Participacion) lListaParticipantes.getSelectedValue();
+        if (part != null) {
             controlador.getSaldoJugador(part);
         }
     }
-    
+
     @Override
-    public void notificarApuesta(){
+    public void notificarApuesta() {
         lFaltantes.setText("<html>Se realizo una apuesta.<br/>Debes igualar o pasar.</html>");
         bApostar.setEnabled(false);
     }
+
     @Override
     public void mostrarSaldoJugador(double saldoJugador) {
-        String saldo=String.valueOf(saldoJugador);       
+        String saldo = String.valueOf(saldoJugador);
         lSaldoJugador.setText(saldo);
     }
-    
+
+    private void apostar() {
+        double monto = Double.parseDouble(tApostar.getText());
+        if (monto <= 0) {
+            JOptionPane.showMessageDialog(this, "La apuesta debe ser mayor a 0");
+        }
+        controlador.apostar(monto);
+        lFaltantes.setText("");
+        bIgualar.setEnabled(false);
+    }
+
+    private void igualar() {
+        double monto = Double.parseDouble(lApuestaActual.getText());
+        controlador.igualarOPasar(monto);
+        lFaltantes.setText("<html>Se ha igualado la apuesta.<html>");
+        if (controlador.verificarMano()) {
+            controlador.manoTerminada();
+        }
+    }
+
+    private void pasar() {
+        bIgualar.setEnabled(false);
+        lFaltantes.setText("<html>Se ha pasado la apuesta.<br/>Quedas fuera de la mano<html>");
+        controlador.igualarOPasar(0);
+        if (controlador.verificarMano()) {
+            controlador.manoTerminada();
+        }
+    }
+
+    @Override
+    public void mostrarGanador(Participacion ganador) {
+        JOptionPane.showMessageDialog(this, "El ganador de la mano es: " + ganador.getNombre());
+    }
+
+    @Override
+    public void formatear() {
+        lApuestaActual.setText("");
+        lFaltantes.setText("");
+        bIgualar.setEnabled(true);
+        bApostar.setEnabled(true);
+    }
+
+    @Override
+    public void noHayGanador() {
+        JOptionPane.showMessageDialog(this, "Todos pasan, siguiente mano.");
+    }
+
+    private void retirar() {
+        JOptionPane.showMessageDialog(this, "Has sido retirado del juego");
+        this.dispose();
+        controlador.retirarParticipante();
+    }
+
+    @Override
+    public void juegoFinalizado() {
+        JOptionPane.showMessageDialog(this, "FELICITACIONES, HAS GANADO EL JUEGO!!");
+        this.dispose();
+    }
+
+    @Override
+    public void cerrarVentana() {
+        JOptionPane.showMessageDialog(this, "Saldo insuficiente, seras retirado del juego");
+        this.dispose();
+    }
+
 }

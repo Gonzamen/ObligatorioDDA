@@ -29,8 +29,9 @@ public class ControladorJuego implements Observador {
         this.vista = vista;
         this.participante = participante;
         this.juego = participante.getJuego();
-        this.mano = juego.getManos().get(0);
+        this.mano = juego.getManos().get(juego.getManos().size() - 1);
         fachada.agregar(this);
+        juego.agregar(this);
         mano.agregar(this);
 
     }
@@ -43,9 +44,23 @@ public class ControladorJuego implements Observador {
         }
         if (evento.equals(Mano.Eventos.actualizarPozo)) {
             actualizarPozo();
+
+        }
+        if (evento.equals(Mano.Eventos.seApuesta)) {
             actualizarApuesta();
             actualizarSaldo();
             desactivarApuesta();
+        }
+        if (evento.equals(Mano.Eventos.hayGanador)) {
+            mostrarGanador();
+            actualizarSaldo();
+            repartirCartas();
+        }
+        if (evento.equals(Mano.Eventos.echarDeLaMano)) {
+            cargarParticipante();
+        }
+        if (evento.equals(Juego.Eventos.retirarJugador)) {
+            cargarParticipante();
         }
     }
 
@@ -73,10 +88,10 @@ public class ControladorJuego implements Observador {
     }
 
     public void apostar(double monto) {
-        if (fachada.getMano(participante, juego).apostar(participante, monto)) {
+        if (mano.apostar(participante, monto)) {
             vista.mostrarApuesta(monto);
             vista.notificarApuesta();
-        }       
+        }
     }
 
     private void actualizarPozo() {
@@ -85,28 +100,77 @@ public class ControladorJuego implements Observador {
 
     private void actualizarApuesta() {
         double monto = 0;
-        for(Participacion p : mano.getParticipantes()){
-            if(p.getNoApuesta()){
+        for (Participacion p : mano.getParticipantes()) {
+            if (p.getNoApuesta()) {
                 monto = p.getApuesta();
             }
         }
         vista.mostrarApuesta(monto);
     }
-    
-    private void actualizarSaldo(){
+
+    private void actualizarSaldo() {
         vista.mostrarSaldo(participante.getSaldo());
     }
-    
-    public double cargarSaldo(){
+
+    public double cargarSaldo() {
         return participante.getSaldo();
     }
-    
-    public void getSaldoJugador(Participacion p){
+
+    public void getSaldoJugador(Participacion p) {
         vista.mostrarSaldoJugador(p.getSaldoJugador());
     }
-    
-    private void desactivarApuesta(){
+
+    private void desactivarApuesta() {
         vista.notificarApuesta();
     }
 
+    public void igualarOPasar(double monto) {
+        mano.igualarApuesta(participante, monto);
+    }
+
+    public boolean verificarMano() {
+        int contador = 0;
+        for (Participacion p : mano.getParticipantes()) {
+            if (p.getNoApuesta()) {
+                contador++;
+            }
+        }
+        if (contador == mano.getParticipantes().size() || contador == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void manoTerminada() {
+        mano.ganadorMano();
+    }
+
+    private void mostrarGanador() {
+        vista.mostrarGanador(mano.getGanador());
+        formatearVista();
+        retirarDelJuego();
+        finalizarJuego();
+    }
+
+    private void formatearVista() {
+        vista.formatear();
+    }
+
+    public void retirarParticipante() {
+        juego.retirarParticipante(participante);
+    }
+
+    private void finalizarJuego() {
+        if (juego.getJugadores().size() == 1) {
+            vista.juegoFinalizado();
+        }
+    }
+
+    private void retirarDelJuego() {
+        if (participante.getSaldo() <= juego.getLuz()) {
+            juego.retirarParticipante(participante);
+            vista.cerrarVentana();
+        }
+    }
 }

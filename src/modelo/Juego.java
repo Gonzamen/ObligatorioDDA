@@ -14,12 +14,14 @@ import observador.Observable;
  */
 public class Juego extends Observable {
 
+    public enum Eventos {
+        retirarJugador};
+
     private ArrayList<Participacion> jugadores = new ArrayList();
     private ArrayList<Mano> mano = new ArrayList();
     private int luz = 5;
-    private int jugadoresMax = 3;
+    private int jugadoresMax = 2;
     private boolean iniciado = false;
-    
 
     public Juego() {
         generarMano();
@@ -60,26 +62,22 @@ public class Juego extends Observable {
     }
 
     public void nuevaMano(double pozoAnterior) {
-        for (Participacion p : this.jugadores) {
-            if (p.getSaldoJugador() < this.luz) {
-                retirarParticipante(p);
-            }
-        }
         mano.add(new Mano(luz * jugadores.size() + pozoAnterior, this.jugadores));
     }
 
-    public boolean retirarParticipante(Participacion jugador) {
-        return jugadores.remove(jugador);
+    public void retirarParticipante(Participacion jugador) {
+        jugadores.remove(jugador);
+        avisar(Eventos.retirarJugador);
     }
 
     public int getLuz() {
         return luz;
     }
-    
-    public int getTotalApostado(){
-        int apostado=0;
-        for(Mano m:this.getManos()){
-            apostado+=m.getPozo();
+
+    public int getTotalApostado() {
+        int apostado = 0;
+        for (Mano m : this.getManos()) {
+            apostado += m.getPozo();
         }
         return apostado;
     }

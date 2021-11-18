@@ -13,10 +13,12 @@ import observador.Observable;
  *
  * @author gonza
  */
-public class Mano extends Observable{
+public class Mano extends Observable {
 
-    public enum Eventos{actualizarPozo};
-    
+    public enum Eventos {
+        actualizarPozo, hayGanador, seApuesta, echarDeLaMano
+    };
+
     private double pozo;
     private Participacion ganador = null;
     private ArrayList<Participacion> participantes = new ArrayList();
@@ -26,28 +28,29 @@ public class Mano extends Observable{
 
     public Mano(double luz, ArrayList<Participacion> participantes) {
         this.pozo = this.pozo + luz;
+        avisar(Eventos.actualizarPozo);
         this.participantes = participantes;
         this.enJuego = true;
         cargarMano();
     }
 
     public Mano() {
-        
+
     }
-    
-    public void iniciarMano(Juego jue){
+
+    public void iniciarMano(Juego jue) {
         this.juego = jue;
         this.pozo = jue.getLuz() * participantes.size();
-        this.enJuego =true;
+        this.enJuego = true;
         this.juego.setearIniciado();
         cargarMano();
     }
-    
-    public void agregarParticipante(Participacion p){
+
+    public void agregarParticipante(Participacion p) {
         participantes.add(p);
     }
-    
-    public boolean getEnJuego(){
+
+    public boolean getEnJuego() {
         return enJuego;
     }
 
@@ -70,7 +73,6 @@ public class Mano extends Observable{
     public Mazo getMazo() {
         return mazo;
     }
-    
 
     public ArrayList<Participacion> getParticipantes() {
         return participantes;
@@ -79,18 +81,21 @@ public class Mano extends Observable{
     public void barajarMazo() {
         mazo.barajar();
     }
-    
-    public void setearFiguras(){
-        for(Participacion p : participantes){
+
+    public void setearFiguras() {
+        for (Participacion p : participantes) {
             p.setFigura();
         }
     }
 
     public void repartirCartas() {
-        for (int i = 0; i < (this.participantes.size() * 5 + this.participantes.size()); i++) {
-            for (Participacion p : this.participantes) {
-                p.setCartasJugador(mazo.getCartas().get(i));
-                i++;
+        int contador = 0;
+        for(Participacion p : this.participantes){           
+            for(int i = 0;i<5;i++){
+                if(p.getCartasJugador().size() < 5){
+                    p.setCartasJugador(mazo.getCartas().get(contador));
+                    contador++;
+                }
             }
         }
     }
@@ -105,39 +110,40 @@ public class Mano extends Observable{
         participante.setNoApuesta(true);
         this.pozo += monto;
         avisar(Eventos.actualizarPozo);
+        avisar(Eventos.seApuesta);
         return true;
     }
 
     public void igualarApuesta(Participacion participante, double monto) {
         if (monto == 0) {
             this.participantes.remove(participante);
+            avisar(Eventos.echarDeLaMano);
         } else {
             participante.apostar(monto);
             participante.setNoApuesta(true);
             this.pozo += monto;
             avisar(Eventos.actualizarPozo);
+            avisar(Eventos.seApuesta);
         }
     }
 
     public Participacion ganadorMano() {
         Participacion ganador = null;
-        if (!this.todosPasan()) {        
-            for(int i=0;i < participantes.size();i++){
-                if(!participantes.get(i).getNoApuesta()){
-                    participantes.remove(i);
-                }
-            }
+        if (!this.todosPasan()) {
             Collections.sort(participantes);
-            this.setGanador(participantes.get(participantes.size()-1));
-            ganador = this.ganador;
-            ganador.getJugador().setSaldo(pozo);
+            this.setGanador(participantes.get(participantes.size() - 1));
+            ganador = this.ganador;         
+            ganador.setPozoJugador(pozo);           
             this.pozo = 0;
+            avisar(Eventos.actualizarPozo);
         }
         this.enJuego = false;
-        juego.nuevaMano(this.pozo);
+        if(participantes.size() != 1){
+           juego.nuevaMano(this.pozo); 
+        }     
+        avisar(Eventos.hayGanador);
         return ganador;
     }
-    
 
     public boolean todosPasan() {
         ArrayList<Participacion> pAux = new ArrayList();
@@ -152,8 +158,12 @@ public class Mano extends Observable{
             return false;
         }
     }
-    
-    public void cargarMano(){
+
+    public void cargarMano() {
+        for(Participacion p : this.participantes){
+            p.vaciarApuesta();
+            p.vaciarCartas();
+        }
         this.barajarMazo();
         this.repartirCartas();
         this.setearFiguras();

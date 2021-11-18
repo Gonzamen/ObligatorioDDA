@@ -39,7 +39,7 @@ public class Jugador extends Usuario{
     }
 
     public void setSaldo(double saldo) {
-        this.saldo = this.saldo + saldo;
+        this.saldo = saldo;
     }
 
     
