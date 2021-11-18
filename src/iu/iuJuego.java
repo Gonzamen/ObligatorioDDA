@@ -72,6 +72,8 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
         lPozo = new javax.swing.JLabel();
         lApuestaActual = new javax.swing.JLabel();
         lFaltantes = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lFigura = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -156,13 +158,13 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
 
         jLabel3.setText("Pozo:");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(190, 290, 50, 16);
+        jLabel3.setBounds(190, 290, 50, 20);
 
         jLabel4.setText("Apuesta Actual:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(390, 280, 90, 30);
         jPanel1.add(tApostar);
-        tApostar.setBounds(160, 40, 100, 22);
+        tApostar.setBounds(160, 40, 100, 26);
 
         lTuSaldo.setText("$");
         jPanel1.add(lTuSaldo);
@@ -183,6 +185,12 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
         lFaltantes.setText(".");
         jPanel1.add(lFaltantes);
         lFaltantes.setBounds(680, 280, 180, 60);
+
+        jLabel5.setText("Figura:");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(20, 290, 51, 20);
+        jPanel1.add(lFigura);
+        lFigura.setBounds(80, 290, 0, 0);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,6 +244,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -247,6 +256,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     private javax.swing.JLabel lCarta4;
     private javax.swing.JLabel lCarta5;
     private javax.swing.JLabel lFaltantes;
+    private javax.swing.JLabel lFigura;
     private javax.swing.JList lListaParticipantes;
     private javax.swing.JLabel lPozo;
     private javax.swing.JLabel lSaldoJugador;
@@ -413,6 +423,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     @Override
     public void cerrarTodo() {
         this.dispose();
+    }
+    
+    @Override
+    public void mostrarFigura(String nombreFigura){
+            lFigura.setText(nombreFigura);    
     }
 
 }

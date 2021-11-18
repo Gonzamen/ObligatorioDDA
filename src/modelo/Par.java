@@ -56,12 +56,15 @@ public class Par extends Figura {
                 }
             }
         }
+        if(contadornum==1){
+            return null;
+        }
         for (Carta c : cartas) {
             if (c.getNumero() != carta.getNumero() && c.getNumero() > cartaAlta.getNumero()) {
                 cartaAlta = c;
+                p = new Par(carta, cartaAlta);
             }
         }
-        p = new Par(carta, cartaAlta);
         return p;
     }
 

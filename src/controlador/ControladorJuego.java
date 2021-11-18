@@ -84,6 +84,7 @@ public class ControladorJuego implements Observador {
 
     private void repartirCartas() {
         vista.cargarCartas(participante.getCartasJugador());
+        vista.mostrarFigura(this.participante.getFigura().getNombre());
     }
 
     public void iniciarJuego() {
@@ -193,6 +194,7 @@ public class ControladorJuego implements Observador {
     private void seguirJugando(){
         new SeguirJugando(null, false, this, participante).setVisible(true);
     }
-
+    
+ 
 
 }
