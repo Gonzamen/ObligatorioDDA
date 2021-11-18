@@ -15,15 +15,17 @@ import observador.Observable;
 public class Juego extends Observable {
 
     public enum Eventos {
-        retirarJugador};
+        retirarJugador, actualizarPozo, juegoTerminado};
 
     private ArrayList<Participacion> jugadores = new ArrayList();
     private ArrayList<Mano> mano = new ArrayList();
-    private int luz = 5;
-    private int jugadoresMax = 2;
+    private int luz;
+    private int jugadoresMax;
     private boolean iniciado = false;
 
-    public Juego() {
+    public Juego(int luz,int jugadoresMax) {
+        this.luz = luz;
+        this.jugadoresMax = jugadoresMax;
         generarMano();
     }
 
@@ -37,10 +39,6 @@ public class Juego extends Observable {
 
     public int getJugadoresMax() {
         return jugadoresMax;
-    }
-
-    public void setJugadoresMax(int jugadoresMax) {
-        this.jugadoresMax = jugadoresMax;
     }
 
     public ArrayList<Participacion> getJugadores() {
@@ -62,17 +60,22 @@ public class Juego extends Observable {
     }
 
     public void nuevaMano(double pozoAnterior) {
-        mano.add(new Mano(luz * jugadores.size() + pozoAnterior, this.jugadores));
+        mano.add(new Mano((luz * jugadores.size()) + pozoAnterior, this.jugadores));
+        avisar(Eventos.actualizarPozo);
     }
 
     public void retirarParticipante(Participacion jugador) {
         jugadores.remove(jugador);
         avisar(Eventos.retirarJugador);
+        if(jugadores.size() == 1){
+            avisar(Eventos.juegoTerminado);
+        }
     }
 
     public int getLuz() {
         return luz;
     }
+    
 
     public int getTotalApostado() {
         int apostado = 0;

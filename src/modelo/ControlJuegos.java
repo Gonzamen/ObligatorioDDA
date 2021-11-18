@@ -15,10 +15,21 @@ public class ControlJuegos {
 
     private ArrayList<Juego> juegos = new ArrayList();
     private ArrayList<Figura> figuras = new ArrayList();
+    private int luz;
+    private int cantJugadores;
 
     public ControlJuegos() {
         cargarFiguras();
     }
+
+    public void setLuz(int luz) {
+        this.luz = luz;
+    }
+
+    public void setCantJugadores(int cantJugadores) {
+        this.cantJugadores = cantJugadores;
+    }
+    
 
     
     public void agregarJuego(Juego juego) {
@@ -51,7 +62,7 @@ public class ControlJuegos {
             }
         }
         if (this.juegos.size() == 0) {
-            Juego j = new Juego();
+            Juego j = new Juego(luz,cantJugadores);
             this.agregarJuego(j);
             if (jugador.getSaldo() >= j.getLuz()) {
                 j.agregarJugador(part);                
@@ -66,7 +77,7 @@ public class ControlJuegos {
                 } else {
                     contador++;
                     if (contador == this.juegos.size()) {
-                        Juego j2 = new Juego();
+                        Juego j2 = new Juego(luz,cantJugadores);
                         this.agregarJuego(j2);
                         if (jugador.getSaldo() >= j2.getLuz()) {
                             j2.agregarJugador(part);

@@ -5,6 +5,9 @@
  */
 package controlador;
 
+import iu.MonitorearJuegos;
+import iu.SeguirJugando;
+import iu.iuJuego;
 import java.util.ArrayList;
 import modelo.Juego;
 import modelo.Mano;
@@ -45,18 +48,25 @@ public class ControladorJuego implements Observador {
         if (evento.equals(Mano.Eventos.actualizarPozo)) {
             actualizarPozo();
         }
+        if (evento.equals(Juego.Eventos.actualizarPozo)) {
+            actualizarPozoJuego();
+        }
         if (evento.equals(Mano.Eventos.seApuesta)) {
             actualizarApuesta();
             actualizarSaldo();
         }
         if (evento.equals(Mano.Eventos.finalizaMano)) {
             mostrarGanador();
+            seguirJugando();
             repartirCartas();
             actualizarSaldo();
             retirarDelJuego();
         }
         if (evento.equals(Juego.Eventos.retirarJugador)) {
-            finalizarJuego();
+            cargarParticipante();
+        }
+        if (evento.equals(Juego.Eventos.juegoTerminado)) {
+            cerrarTodo();
         }
     }
 
@@ -93,10 +103,14 @@ public class ControladorJuego implements Observador {
         vista.mostrarPozo(mano.getPozo());
     }
 
-    private void actualizarApuesta() { 
+    private void actualizarPozoJuego() {
+        vista.mostrarPozo(juego.getManos().get(juego.getManos().size() - 1).getPozo());
+    }
+
+    private void actualizarApuesta() {
         vista.mostrarApuesta(mano.getApuesta());
         vista.notificarApuesta();
-        
+
     }
 
     private void actualizarSaldo() {
@@ -114,10 +128,9 @@ public class ControladorJuego implements Observador {
     public void igualarOPasar(double monto) {
         mano.igualarApuesta(participante, monto);
     }
-       
 
-    public boolean todosParticipan(){
-       int contador = 0;
+    public boolean todosParticipan() {
+        int contador = 0;
         for (Participacion p : mano.getParticipantes()) {
             if (p.getParticipa() == true) {
                 contador++;
@@ -127,19 +140,20 @@ public class ControladorJuego implements Observador {
             return true;
         } else {
             return false;
-        } 
+        }
     }
+
     public void manoTerminada() {
-        mano.ganadorMano();     
+        mano.ganadorMano();
     }
 
     private void mostrarGanador() {
-        if(mano.getGanador() != null){
+        if (mano.getGanador() != null) {
             vista.mostrarGanador(mano.getGanador());
-        }else{
+        } else {
             vista.noHayGanador();
-        }       
-        formatearVista();      
+        }
+        formatearVista();
     }
 
     private void formatearVista() {
@@ -148,12 +162,14 @@ public class ControladorJuego implements Observador {
 
     public void retirarParticipante() {
         juego.retirarParticipante(participante);
+        finalizarJuego();
     }
 
     private void finalizarJuego() {
         if (juego.getJugadores().size() == 1) {
             vista.juegoFinalizado();
         }
+
     }
 
     private void retirarDelJuego() {
@@ -161,9 +177,21 @@ public class ControladorJuego implements Observador {
             juego.retirarParticipante(participante);
             vista.cerrarVentana();
         }
+        finalizarJuego();
     }
-    
-    private void setearTitulo(){
+
+    private void setearTitulo() {
         vista.cargarTitulo(participante.getNombre());
     }
+
+    public void cerrarTodo() {
+        vista.cerrarTodo();
+    }
+    
+    
+    private void seguirJugando(){
+        new SeguirJugando(null, false, this, participante).setVisible(true);
+    }
+
+
 }

@@ -72,6 +72,14 @@ public class Sistema extends Observable{
     public Administrador loginAdmin(String usuario, String pwd) {
         return controlUsuarios.loginAdmin(usuario, pwd);
     }
+
+    public void setLuz(int luz) {
+        controlJuegos.setLuz(luz);
+    }
+
+    public void setCantJugadores(int cantJugadores) {
+        controlJuegos.setCantJugadores(cantJugadores);
+    }
     
     
 }

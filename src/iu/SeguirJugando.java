@@ -5,6 +5,9 @@
  */
 package iu;
 
+import controlador.ControladorJuego;
+import modelo.Participacion;
+
 /**
  *
  * @author gonza
@@ -14,9 +17,15 @@ public class SeguirJugando extends javax.swing.JDialog {
     /**
      * Creates new form SeguirJugando
      */
-    public SeguirJugando(java.awt.Frame parent, boolean modal) {
+    
+    private ControladorJuego controladorjuego;
+    private Participacion part;
+    
+    public SeguirJugando(java.awt.Frame parent, boolean modal, ControladorJuego controlador, Participacion participante) {
         super(parent, modal);
         initComponents();
+        controladorjuego = controlador;
+        part = participante;
     }
 
     /**
@@ -104,10 +113,15 @@ public class SeguirJugando extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void seguir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        part.setInteractua();
+        part.setSigue();
+            this.dispose();
     }
 
     private void quitarlo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        part.setInteractua();
+        controladorjuego.retirarParticipante();
+        this.dispose();
+        controladorjuego.cerrarTodo();
     }
 }

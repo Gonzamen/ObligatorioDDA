@@ -42,5 +42,7 @@ public interface VistaJuego {
     public void cerrarVentana();
 
     public void cargarTitulo(String nombre);
+
+    public void cerrarTodo();
   
 }

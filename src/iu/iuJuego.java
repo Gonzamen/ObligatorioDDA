@@ -29,11 +29,13 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
      * Creates new form Juego
      */
     private ControladorJuego controlador;
+    private Participacion part;
 
     public iuJuego(java.awt.Frame parent, boolean modal, Participacion participante) {
         super(parent, modal);
         initComponents();
         controlador = new ControladorJuego(this, participante);
+        part = participante;
         cargarSaldo();
     }
 
@@ -348,6 +350,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
         lFaltantes.setText("<html>Se ha igualado la apuesta.<html>");
         if (controlador.todosParticipan()) {
             controlador.manoTerminada();
+            
         }
     }
 
@@ -390,7 +393,7 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     @Override
     public void juegoFinalizado() {
         JOptionPane.showMessageDialog(null, "FELICITACIONES, HAS GANADO EL JUEGO!!");
-        this.dispose();
+        
     }
 
     @Override
@@ -402,6 +405,11 @@ public class iuJuego extends javax.swing.JDialog implements VistaJuego {
     @Override
     public void cargarTitulo(String nombre) {
         setTitle(nombre);
+    }
+
+    @Override
+    public void cerrarTodo() {
+        this.dispose();
     }
 
 }

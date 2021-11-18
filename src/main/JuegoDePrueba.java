@@ -23,6 +23,8 @@ import modelo.Sistema;
 public class JuegoDePrueba {
     public static void cargarDatos(){
         Sistema sistema = Sistema.getInstancia();
+        sistema.setCantJugadores(3);
+        sistema.setLuz(5);
         Administrador admin1 = new Administrador("a","a","aa");
         Jugador jug1 = new Jugador("a","a","aa",150);
         Jugador jug2 = new Jugador("b","b","bb",150);
