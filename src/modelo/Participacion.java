@@ -35,6 +35,10 @@ public class Participacion implements Comparable<Participacion> {
     public ArrayList<Carta> getCartasJugador() {
         return cartasJugador;
     }
+    
+    public void setCartasJugador(ArrayList<Carta> cartas){
+        this.cartasJugador=cartas;
+    }
 
     public void setCartasJugador(Carta carta) {
         this.cartasJugador.add(carta);

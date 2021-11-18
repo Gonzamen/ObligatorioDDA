@@ -88,14 +88,8 @@ public class Mano extends Observable {
     }
 
     public void repartirCartas() {
-        int contador = 0;
         for (Participacion p : this.participantes) {
-            for (int i = 0; i < 5; i++) {
-                if (p.getCartasJugador().size() <= 5) {
-                    p.setCartasJugador(mazo.getCartas().get(contador));
-                    contador++;
-                }
-            }
+            p.setCartasJugador(this.mazo.darCartas(5));
         }
     }
 
